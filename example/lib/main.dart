@@ -3,7 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:native_ads/native_ads.dart';
-import 'package:native_ads/parent_view.dart';
+import 'package:native_ads/native_ad_view.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,7 +14,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
-  ParentViewController _controller;
+  NativeAdViewController _controller;
 
   @override
   void initState() {
@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 Text("text middle"),
                 SizedBox(
-                  child: ParentView(
+                  child: NativeAdView(
                     onParentViewCreated: (controller) {
                       _controller = controller;
                     },

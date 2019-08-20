@@ -2,26 +2,26 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-typedef void ParentViewCreatedCallback(ParentViewController controller);
+typedef void NativeAdViewCreatedCallback(NativeAdViewController controller);
 
-class ParentView extends StatefulWidget {
-  const ParentView({
+class NativeAdView extends StatefulWidget {
+  const NativeAdView({
     Key key,
     this.onParentViewCreated,
   }) : super(key: key);
 
-  final ParentViewCreatedCallback onParentViewCreated;
+  final NativeAdViewCreatedCallback onParentViewCreated;
 
   @override
-  State<StatefulWidget> createState() => _ParentViewState();
+  State<StatefulWidget> createState() => _NativeAdViewState();
 }
 
-class _ParentViewState extends State<ParentView> {
+class _NativeAdViewState extends State<NativeAdView> {
   @override
   Widget build(BuildContext context) {
     if (defaultTargetPlatform == TargetPlatform.android) {
       return AndroidView(
-        viewType: 'com.github.sakebook/parent_view',
+        viewType: 'com.github.sakebook/unified_ad_layout',
         onPlatformViewCreated: _onPlatformViewCreated,
       );
     }
@@ -33,13 +33,13 @@ class _ParentViewState extends State<ParentView> {
     if (widget.onParentViewCreated == null) {
       return;
     }
-    widget.onParentViewCreated(ParentViewController._(id));
+    widget.onParentViewCreated(NativeAdViewController._(id));
   }
 }
 
-class ParentViewController {
-  ParentViewController._(int id)
-      : _channel = MethodChannel('com.github.sakebook/parent_view_$id');
+class NativeAdViewController {
+  NativeAdViewController._(int id)
+      : _channel = MethodChannel('com.github.sakebook/unified_ad_layout_$id');
 
   final MethodChannel _channel;
 
