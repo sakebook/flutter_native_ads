@@ -12,14 +12,17 @@ class NativeAdsPlugin: MethodCallHandler {
     fun registerWith(registrar: Registrar) {
       val channel = MethodChannel(registrar.messenger(), "native_ads")
       channel.setMethodCallHandler(NativeAdsPlugin())
+      registrar
+              .platformViewRegistry()
+              .registerViewFactory(
+                      "com.github.sakebook/parent_view", ParentLayoutFactory(registrar.messenger()))
     }
   }
 
   override fun onMethodCall(call: MethodCall, result: Result) {
-    if (call.method == "getPlatformVersion") {
-      result.success("Android ${android.os.Build.VERSION.RELEASE}")
-    } else {
-      result.notImplemented()
+    when (call.method) {
+      "getPlatformVersion" -> result.success("Android ${android.os.Build.VERSION.RELEASE}")
+      else -> result.notImplemented()
     }
   }
 }

@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:native_ads/native_ads.dart';
+import 'package:native_ads/parent_view.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,6 +14,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
+  ParentViewController _controller;
 
   @override
   void initState() {
@@ -48,9 +50,39 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            child: Column(
+              children: <Widget>[
+                Text("text start"),
+                SizedBox(
+                  child: Text('Running on: $_platformVersion\n'),
+                  width: double.infinity,
+                  height: 200,
+                ),
+                Text("text middle"),
+                SizedBox(
+                  child: ParentView(
+                    onParentViewCreated: (controller) {
+                      _controller = controller;
+                    },
+                  ),
+                  width: double.infinity,
+                  height: 200,
+                ),
+                Text("text end"),
+              ],
+            ),
+          ),
         ),
+        floatingActionButton: FloatingActionButton(onPressed: () {
+          addView();
+        }),
       ),
     );
+  }
+
+  void addView() {
+    _controller.addView();
   }
 }
