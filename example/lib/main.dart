@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:native_ads/layout_rules.dart';
+import 'package:native_ads/layout_views.dart';
 import 'package:native_ads/native_ads.dart';
 import 'package:native_ads/native_ad_view.dart';
 
@@ -65,6 +67,7 @@ class _MyAppState extends State<MyApp> {
                   child: NativeAdView(
                     onParentViewCreated: (controller) {
                       _controller = controller;
+                      populateNativeAdView();
                     },
                   ),
                   width: double.infinity,
@@ -76,13 +79,18 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         floatingActionButton: FloatingActionButton(onPressed: () {
-          addView();
+//          addView();
+          populateNativeAdView();
         }),
       ),
     );
   }
 
-  void addView() {
-    _controller.addView();
+  void populateNativeAdView() {
+//    _controller.addHeadline(rule: LayoutRules.alignParentTop);
+//    _controller.addBody(rule: LayoutRules.below, view: LayoutViews.headline);
+//    _controller.addCallToAction(rule: LayoutRules.below, view: LayoutViews.body);
+//    _controller.addMedia(rule: LayoutRules.below, view: LayoutViews.callToAction);
+//    _controller.setNativeAd();
   }
 }
