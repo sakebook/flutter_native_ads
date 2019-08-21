@@ -1,11 +1,9 @@
 package sakebook.github.com.native_ads
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.RelativeLayout
+import android.view.ViewGroup
 import android.widget.TextView
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
@@ -18,25 +16,30 @@ import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.platform.PlatformView
-import java.security.InvalidParameterException
 
-class UnifiedAdLayout(private val context: Context, messenger: BinaryMessenger, id: Int) : PlatformView, MethodChannel.MethodCallHandler {
+class UnifiedAdLayout(private val context: Context, messenger: BinaryMessenger, id: Int, arguments: HashMap<String, String>) : PlatformView, MethodChannel.MethodCallHandler {
 
+    private val layoutRes = context.resources.getIdentifier(arguments["layout_name"], "layout", arguments["package_name"])
     private val unifiedNativeAdView: UnifiedNativeAdView = UnifiedNativeAdView(context)
-    private val parentLayout: RelativeLayout = RelativeLayout(context)
+    private val parentLayout: ViewGroup = View.inflate(context, layoutRes, null) as ViewGroup
+
+    private lateinit var headlineView: TextView
+    private lateinit var bodyView: TextView
+    private lateinit var callToActionView: TextView
+    private lateinit var mediaView: MediaView
+    private lateinit var advertiserView: TextView
+
     private val methodChannel: MethodChannel = MethodChannel(messenger, "com.github.sakebook/unified_ad_layout_$id")
     private var ad: UnifiedNativeAd? = null
 
     init {
         unifiedNativeAdView.addView(parentLayout)
+        mappingView(arguments)
         methodChannel.setMethodCallHandler(this)
 
         AdLoader.Builder(context, "ca-app-pub-3940256099942544/2247696110")
                 .forUnifiedNativeAd {
                     ad = it
-                    addBody(hashMapOf("rule" to "LayoutRules.alignParentTop", "view" to ""), LayoutViews.body.viewId())
-                    addMedia(hashMapOf("rule" to "LayoutRules.below", "view" to "LayoutViews.body"), LayoutViews.media.viewId())
-
                     ensureUnifiedAd(it)
                 }
                 .withAdListener(object : AdListener() {
@@ -91,108 +94,37 @@ class UnifiedAdLayout(private val context: Context, messenger: BinaryMessenger, 
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-        when (call.method) {
-            "addHeadline" -> addHeadline(call.arguments as HashMap<String, String>, LayoutViews.headline.viewId())
-            "addImage" -> addImage(call.arguments as HashMap<String, String>, LayoutViews.image.viewId())
-            "addBody" -> addBody(call.arguments as HashMap<String, String>, LayoutViews.body.viewId())
-            "addIcon" -> addIcon(call.arguments as HashMap<String, String>, LayoutViews.icon.viewId())
-            "addCallToAction" -> addCallToAction(call.arguments as HashMap<String, String>, LayoutViews.callToAction.viewId())
-            "addMedia" -> addMedia(call.arguments as HashMap<String, String>, LayoutViews.media.viewId())
-            "setNativeAd" -> ensureUnifiedAd(ad)
-            else -> TODO("必要であれば実装する")
-        }
-    }
-
-    private fun addHeadline(arguments: HashMap<String, String>, viewId: ViewId) {
-        val textView = TextView(context).apply {
-            this.id = viewId
-            this.text = ad?.headline
-        }
-        addView(textView, arguments)
-        unifiedNativeAdView.headlineView = textView
-    }
-
-    private fun addImage(arguments: HashMap<String, String>, viewId: ViewId) {
-        val imageView = ImageView(context).apply {
-            this.id = viewId
-            this.setImageDrawable(ad?.images?.get(0)?.drawable)
-        }
-        addView(imageView, arguments)
-        unifiedNativeAdView.imageView = imageView
-    }
-
-    private fun addBody(arguments: HashMap<String, String>, viewId: ViewId) {
-        val textView = TextView(context).apply {
-            this.id = viewId
-            this.text = ad?.body
-        }
-        addView(textView, arguments)
-        unifiedNativeAdView.bodyView = textView
-    }
-
-    private fun addIcon(arguments: HashMap<String, String>, viewId: ViewId) {
-        val imageView = ImageView(context).apply {
-            this.id = viewId
-            this.setImageDrawable(ad?.icon?.drawable)
-        }
-        addView(imageView, arguments)
-        unifiedNativeAdView.iconView = imageView
-    }
-
-    private fun addCallToAction(arguments: HashMap<String, String>, viewId: ViewId) {
-        val textView = TextView(context).apply {
-            this.id = viewId
-            this.text = ad?.callToAction
-        }
-        addView(textView, arguments)
-        unifiedNativeAdView.callToActionView = textView
-    }
-
-    private fun addMedia(arguments: HashMap<String, String>, viewId: ViewId) {
-        val mediaView = MediaView(context).apply {
-            this.id = viewId
-            this.setMediaContent(ad?.mediaContent)
-        }
-        addView(mediaView, arguments)
-        unifiedNativeAdView.mediaView = mediaView
-    }
-
-    private fun addView(targetView: View, arguments: HashMap<String, String>) {
-        val rule = arguments["rule"]
-        val view = arguments["view"]
-        Log.d("UnifiedAdLayout", "rule: $rule, view: $view")
-        if (rule.isNullOrEmpty()) {
-            throw InvalidParameterException()
-        }
-        val params = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
-        val layoutRules = LayoutRules.from(rule)
-        val layoutViews = if (view.isNullOrBlank() || view == "null") { null } else LayoutViews.from(view)
-
-        when (layoutRules) {
-            LayoutRules.alignParentLeft -> params.addRule(RelativeLayout.ALIGN_PARENT_LEFT)
-            LayoutRules.alignParentTop -> params.addRule(RelativeLayout.ALIGN_PARENT_TOP)
-            LayoutRules.alignParentRight -> params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
-            LayoutRules.alignParentBottom -> params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
-            LayoutRules.above -> {
-                layoutViews?.let { params.addRule(RelativeLayout.ABOVE, it.viewId()) }
-            }
-            LayoutRules.below -> {
-                layoutViews?.let { params.addRule(RelativeLayout.BELOW, it.viewId()) }
-            }
-            LayoutRules.toLeftOf -> {
-                layoutViews?.let { params.addRule(RelativeLayout.LEFT_OF, it.viewId()) }
-            }
-            LayoutRules.toRightOf -> {
-                layoutViews?.let { params.addRule(RelativeLayout.RIGHT_OF, it.viewId()) }
-            }
-        }
-        parentLayout.addView(targetView, params)
+        TODO("必要であれば実装する")
     }
 
     private fun ensureUnifiedAd(ad: UnifiedNativeAd?) {
+        headlineView.text = ad?.headline
+        bodyView.text = ad?.body
+        callToActionView.text = ad?.callToAction
+        mediaView.setMediaContent(ad?.mediaContent)
+        advertiserView.text = ad?.advertiser
+
+        unifiedNativeAdView.bodyView = bodyView
+        unifiedNativeAdView.headlineView = headlineView
+        unifiedNativeAdView.callToActionView = callToActionView
+        unifiedNativeAdView.mediaView = mediaView
+        unifiedNativeAdView.advertiserView = advertiserView
+
         unifiedNativeAdView.setNativeAd(ad)
     }
-}
 
-typealias Rules = Int
-typealias ViewId = Int
+    private fun mappingView(arguments: HashMap<String, String>) {
+        val resource = context.resources
+        val headlineId = resource.getIdentifier(arguments["view_id_headline"], "id", arguments["package_name"])
+        val bodyId = resource.getIdentifier(arguments["view_id_body"], "id", arguments["package_name"])
+        val callToActionId = resource.getIdentifier(arguments["view_id_call_to_action"], "id", arguments["package_name"])
+        val mediaId = resource.getIdentifier(arguments["view_id_media"], "id", arguments["package_name"])
+        val advertiserId = resource.getIdentifier(arguments["view_id_advertiser"], "id", arguments["package_name"])
+
+        headlineView = parentLayout.findViewById(headlineId)
+        bodyView = parentLayout.findViewById(bodyId)
+        callToActionView = parentLayout.findViewById(callToActionId)
+        mediaView = parentLayout.findViewById(mediaId)
+        advertiserView = parentLayout.findViewById(advertiserId)
+    }
+}

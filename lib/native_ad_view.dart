@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:native_ads/layout_rules.dart';
 import 'package:native_ads/layout_views.dart';
+import 'package:native_ads/native_ad_param.dart';
 
 typedef void NativeAdViewCreatedCallback(NativeAdViewController controller);
 
 class NativeAdView extends StatefulWidget {
   const NativeAdView({
     Key key,
-    this.onParentViewCreated,
+    this.onParentViewCreated, this.nativeAdParam,
   }) : super(key: key);
 
   final NativeAdViewCreatedCallback onParentViewCreated;
+  final NativeAdParam nativeAdParam;
 
   @override
   State<StatefulWidget> createState() => _NativeAdViewState();
@@ -25,6 +27,8 @@ class _NativeAdViewState extends State<NativeAdView> {
       return AndroidView(
         viewType: 'com.github.sakebook/unified_ad_layout',
         onPlatformViewCreated: _onPlatformViewCreated,
+        creationParams: widget.nativeAdParam.toMap(),
+        creationParamsCodec: StandardMessageCodec(),
       );
     }
     return Text(

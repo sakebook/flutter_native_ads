@@ -8,6 +8,6 @@ import io.flutter.plugin.platform.PlatformViewFactory
 
 class UnifiedAdLayoutFactory(private val messenger: BinaryMessenger) : PlatformViewFactory(StandardMessageCodec.INSTANCE) {
     override fun create(context: Context, viewId: Int, args: Any?): PlatformView {
-        return UnifiedAdLayout(context, messenger, viewId)
+        return UnifiedAdLayout(context, messenger, viewId, args as HashMap<String, String>)
     }
 }
