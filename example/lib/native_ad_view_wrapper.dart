@@ -23,7 +23,7 @@ class NativeAdViewWrapperState extends State<NativeAdViewWrapper>
         _controller = controller;
       },
       nativeAdParam: NativeAdParam()
-        ..placementId = "ca-app-pub-3940256099942544/2247696110"
+        ..placementId = "ca-app-pub-3940256099942544/2247696110" // test
         ..packageName = "sakebook.github.com.native_ads_example"
         ..layoutName = "native_ad_layout"
         ..headlineViewId = "text_heading"
@@ -32,6 +32,9 @@ class NativeAdViewWrapperState extends State<NativeAdViewWrapper>
         ..mediaViewId = "video_thumbnail"
         ..attributionViewId = "text_publisher"
         ..attributionTextResId = "ad_attribution",
+      listener: (event, params) {
+        print("listener event: $event, params: $params");
+      },
     );
   }
 }

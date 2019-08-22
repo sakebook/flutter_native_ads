@@ -13,11 +13,10 @@ import com.google.android.gms.ads.formats.NativeAdOptions
 import com.google.android.gms.ads.formats.UnifiedNativeAd
 import com.google.android.gms.ads.formats.UnifiedNativeAdView
 import io.flutter.plugin.common.BinaryMessenger
-import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.platform.PlatformView
 
-class UnifiedAdLayout(private val context: Context, messenger: BinaryMessenger, id: Int, arguments: HashMap<String, String>) : PlatformView, MethodChannel.MethodCallHandler {
+class UnifiedAdLayout(private val context: Context, messenger: BinaryMessenger, id: Int, arguments: HashMap<String, String>) : PlatformView {
 
     private val layoutRes = context.resources.getIdentifier(arguments["layout_name"], "layout", arguments["package_name"])
     private val unifiedNativeAdView: UnifiedNativeAdView = UnifiedNativeAdView(context)
@@ -35,8 +34,6 @@ class UnifiedAdLayout(private val context: Context, messenger: BinaryMessenger, 
     init {
         unifiedNativeAdView.addView(parentLayout)
         mappingView(arguments)
-        methodChannel.setMethodCallHandler(this)
-
         AdLoader.Builder(context, arguments["placement_id"])
                 .forUnifiedNativeAd {
                     ad = it
@@ -46,42 +43,50 @@ class UnifiedAdLayout(private val context: Context, messenger: BinaryMessenger, 
                     override fun onAdImpression() {
                         super.onAdImpression()
                         Log.d("UnifiedAdLayout", "ad onAdImpression")
+                        methodChannel.invokeMethod("onAdImpression", null)
                     }
 
                     override fun onAdLeftApplication() {
                         super.onAdLeftApplication()
                         Log.d("UnifiedAdLayout", "ad onAdLeftApplication")
+                        methodChannel.invokeMethod("onAdLeftApplication", null)
                     }
 
                     override fun onAdClicked() {
                         super.onAdClicked()
                         Log.d("UnifiedAdLayout", "ad onAdClicked")
+                        methodChannel.invokeMethod("onAdClicked", null)
                     }
 
                     override fun onAdFailedToLoad(p0: Int) {
                         super.onAdFailedToLoad(p0)
                         Log.d("UnifiedAdLayout", "ad onAdFailedToLoad $p0")
+                        methodChannel.invokeMethod("onAdFailedToLoad", p0)
                     }
 
                     override fun onAdClosed() {
                         super.onAdClosed()
                         Log.d("UnifiedAdLayout", "ad onAdClosed")
+                        methodChannel.invokeMethod("onAdClosed", null)
                     }
 
                     override fun onAdOpened() {
                         super.onAdOpened()
                         Log.d("UnifiedAdLayout", "ad onAdOpened")
+                        methodChannel.invokeMethod("onAdOpened", null)
                     }
 
                     override fun onAdLoaded() {
                         super.onAdLoaded()
                         Log.d("UnifiedAdLayout", "ad onAdLoaded")
+                        methodChannel.invokeMethod("onAdLoaded", null)
                     }
                 })
                 .withNativeAdOptions(NativeAdOptions.Builder()
                         .build())
                 .build()
-                .loadAd(AdRequest.Builder().build())
+                .loadAd(AdRequest.Builder()
+                        .build())
     }
 
     override fun getView(): View {
@@ -91,10 +96,7 @@ class UnifiedAdLayout(private val context: Context, messenger: BinaryMessenger, 
     override fun dispose() {
         ad?.destroy()
         unifiedNativeAdView.removeAllViews()
-    }
-
-    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-        TODO("必要であれば実装する")
+        methodChannel.setMethodCallHandler(null)
     }
 
     private fun ensureUnifiedAd(ad: UnifiedNativeAd?) {

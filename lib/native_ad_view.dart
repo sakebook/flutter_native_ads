@@ -1,25 +1,34 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:native_ads/native_ad_event.dart';
+import 'package:native_ads/native_ad_event_delegate.dart';
 import 'package:native_ads/native_ad_param.dart';
 
 typedef void NativeAdViewCreatedCallback(NativeAdViewController controller);
 
 class NativeAdView extends StatefulWidget {
-  const NativeAdView({
+  NativeAdView({
     Key key,
     this.onParentViewCreated,
     this.nativeAdParam,
+    this.listener,
   }) : super(key: key);
 
   final NativeAdViewCreatedCallback onParentViewCreated;
   final NativeAdParam nativeAdParam;
+  final Function(NativeAdEvent, Map<String, dynamic>) listener;
 
   @override
-  State<StatefulWidget> createState() => _NativeAdViewState();
+  State<StatefulWidget> createState() =>
+      _NativeAdViewState(NativeAdEventDelegate(listener));
 }
 
 class _NativeAdViewState extends State<NativeAdView> {
+  final NativeAdEventDelegate delegate;
+
+  _NativeAdViewState(this.delegate);
+
   @override
   Widget build(BuildContext context) {
     if (defaultTargetPlatform == TargetPlatform.android) {
@@ -38,7 +47,9 @@ class _NativeAdViewState extends State<NativeAdView> {
     if (widget.onParentViewCreated == null) {
       return;
     }
-    widget.onParentViewCreated(NativeAdViewController._(id));
+    final controller = NativeAdViewController._(id);
+    controller._channel.setMethodCallHandler(delegate.handleMethod);
+    widget.onParentViewCreated(controller);
   }
 }
 

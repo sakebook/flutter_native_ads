@@ -20,9 +20,6 @@ class NativeAdsPlugin : MethodCallHandler {
     }
 
     override fun onMethodCall(call: MethodCall, result: Result) {
-        when (call.method) {
-            "getPlatformVersion" -> result.success("Android ${android.os.Build.VERSION.RELEASE}")
-            else -> result.notImplemented()
-        }
+        result.notImplemented()
     }
 }
