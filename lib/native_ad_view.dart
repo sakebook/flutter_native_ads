@@ -1,27 +1,47 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:native_ads/native_ad_event.dart';
 import 'package:native_ads/native_ad_event_delegate.dart';
 import 'package:native_ads/native_ad_param.dart';
 
 typedef void NativeAdViewCreatedCallback(NativeAdViewController controller);
 
 class NativeAdView extends StatefulWidget {
-  NativeAdView({
+  const NativeAdView({
     Key key,
     this.onParentViewCreated,
     this.nativeAdParam,
-    this.listener,
+    this.onAdImpression,
+    this.onAdLeftApplication,
+    this.onAdClicked,
+    this.onAdFailedToLoad,
+    this.onAdClosed,
+    this.onAdOpened,
+    this.onAdLoaded,
   }) : super(key: key);
 
   final NativeAdViewCreatedCallback onParentViewCreated;
   final NativeAdParam nativeAdParam;
-  final Function(NativeAdEvent, Map<String, dynamic>) listener;
+  final Function() onAdImpression;
+  final Function() onAdLeftApplication;
+  final Function() onAdClicked;
+  final Function(Map<String, dynamic>) onAdFailedToLoad;
+  final Function() onAdClosed;
+  final Function() onAdOpened;
+  final Function() onAdLoaded;
 
   @override
-  State<StatefulWidget> createState() =>
-      _NativeAdViewState(NativeAdEventDelegate(listener));
+  State<StatefulWidget> createState() => _NativeAdViewState(
+        NativeAdEventDelegate(
+          onAdImpression: onAdImpression,
+          onAdLeftApplication: onAdLeftApplication,
+          onAdClicked: onAdClicked,
+          onAdFailedToLoad: onAdFailedToLoad,
+          onAdClosed: onAdClosed,
+          onAdOpened: onAdOpened,
+          onAdLoaded: onAdLoaded,
+        ),
+      );
 }
 
 class _NativeAdViewState extends State<NativeAdView> {
@@ -58,8 +78,4 @@ class NativeAdViewController {
       : _channel = MethodChannel('com.github.sakebook/unified_ad_layout_$id');
 
   final MethodChannel _channel;
-
-  Future<void> setNativeAd() async {
-    return _channel.invokeMethod('setNativeAd');
-  }
 }

@@ -32,9 +32,8 @@ class NativeAdViewWrapperState extends State<NativeAdViewWrapper>
         ..mediaViewId = "video_thumbnail"
         ..attributionViewId = "text_publisher"
         ..attributionTextResId = "ad_attribution",
-      listener: (event, params) {
-        print("listener event: $event, params: $params");
-      },
+      onAdImpression: () => print("onAdImpression!!!"),
+      onAdClicked: () => print("onAdClicked!!!"),
     );
   }
 }

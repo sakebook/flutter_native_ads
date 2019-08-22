@@ -1,34 +1,46 @@
 import 'package:flutter/services.dart';
-import 'package:native_ads/native_ad_event.dart';
 
 class NativeAdEventDelegate {
-  final Function(NativeAdEvent, Map<String, dynamic>) listener;
+  const NativeAdEventDelegate({
+    this.onAdImpression,
+    this.onAdLeftApplication,
+    this.onAdClicked,
+    this.onAdFailedToLoad,
+    this.onAdClosed,
+    this.onAdOpened,
+    this.onAdLoaded,
+  });
 
-  NativeAdEventDelegate(this.listener);
+  final Function() onAdImpression;
+  final Function() onAdLeftApplication;
+  final Function() onAdClicked;
+  final Function(Map<String, dynamic>) onAdFailedToLoad;
+  final Function() onAdClosed;
+  final Function() onAdOpened;
+  final Function() onAdLoaded;
 
   Future<dynamic> handleMethod(MethodCall call) async {
     switch (call.method) {
       case 'onAdImpression':
-        listener(NativeAdEvent.onAdImpression, null);
+        onAdImpression();
         break;
       case 'onAdLeftApplication':
-        listener(NativeAdEvent.onAdLeftApplication, null);
+        onAdLeftApplication();
         break;
       case 'onAdClicked':
-        listener(NativeAdEvent.onAdClicked, null);
+        onAdClicked();
         break;
       case 'onAdFailedToLoad':
-        listener(NativeAdEvent.onAdFailedToLoad,
-            Map<String, dynamic>.from(call.arguments));
+        onAdFailedToLoad(Map<String, dynamic>.from(call.arguments));
         break;
       case 'onAdClosed':
-        listener(NativeAdEvent.onAdClosed, null);
+        onAdClosed();
         break;
       case 'onAdOpened':
-        listener(NativeAdEvent.onAdOpened, null);
+        onAdOpened();
         break;
       case 'onAdLoaded':
-        listener(NativeAdEvent.onAdLoaded, null);
+        onAdLoaded();
         break;
     }
   }
