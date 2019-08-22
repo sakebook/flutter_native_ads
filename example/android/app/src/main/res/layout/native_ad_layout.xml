@@ -18,7 +18,6 @@
         android:textSize="14sp"
         android:maxLines="2"
         android:ellipsize="end"
-        tools:text="ロイター.co.jp"
         tools:ignore="RtlHardcoded" />
 
     <TextView
@@ -47,7 +46,6 @@
         android:layout_marginLeft="12dp"
         android:textSize="12sp"
         android:ellipsize="middle"
-        android:text="AD"
         android:textColor="@android:color/darker_gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,7 +61,6 @@
         android:textStyle="bold"
         android:includeFontPadding="false"
         android:ellipsize="middle"
-        tools:text="NHKニュース"
         android:textColor="@android:color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

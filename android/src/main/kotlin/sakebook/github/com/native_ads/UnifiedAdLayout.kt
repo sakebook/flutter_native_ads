@@ -27,7 +27,7 @@ class UnifiedAdLayout(private val context: Context, messenger: BinaryMessenger, 
     private lateinit var bodyView: TextView
     private lateinit var callToActionView: TextView
     private lateinit var mediaView: MediaView
-    private lateinit var advertiserView: TextView
+    private lateinit var attributionView: TextView
 
     private val methodChannel: MethodChannel = MethodChannel(messenger, "com.github.sakebook/unified_ad_layout_$id")
     private var ad: UnifiedNativeAd? = null
@@ -37,7 +37,7 @@ class UnifiedAdLayout(private val context: Context, messenger: BinaryMessenger, 
         mappingView(arguments)
         methodChannel.setMethodCallHandler(this)
 
-        AdLoader.Builder(context, "ca-app-pub-3940256099942544/2247696110")
+        AdLoader.Builder(context, arguments["placement_id"])
                 .forUnifiedNativeAd {
                     ad = it
                     ensureUnifiedAd(it)
@@ -102,13 +102,11 @@ class UnifiedAdLayout(private val context: Context, messenger: BinaryMessenger, 
         bodyView.text = ad?.body
         callToActionView.text = ad?.callToAction
         mediaView.setMediaContent(ad?.mediaContent)
-        advertiserView.text = ad?.advertiser
 
         unifiedNativeAdView.bodyView = bodyView
         unifiedNativeAdView.headlineView = headlineView
         unifiedNativeAdView.callToActionView = callToActionView
         unifiedNativeAdView.mediaView = mediaView
-        unifiedNativeAdView.advertiserView = advertiserView
 
         unifiedNativeAdView.setNativeAd(ad)
     }
@@ -119,12 +117,14 @@ class UnifiedAdLayout(private val context: Context, messenger: BinaryMessenger, 
         val bodyId = resource.getIdentifier(arguments["view_id_body"], "id", arguments["package_name"])
         val callToActionId = resource.getIdentifier(arguments["view_id_call_to_action"], "id", arguments["package_name"])
         val mediaId = resource.getIdentifier(arguments["view_id_media"], "id", arguments["package_name"])
-        val advertiserId = resource.getIdentifier(arguments["view_id_advertiser"], "id", arguments["package_name"])
+        val attributionId = resource.getIdentifier(arguments["view_id_attribution"], "id", arguments["package_name"])
 
         headlineView = parentLayout.findViewById(headlineId)
         bodyView = parentLayout.findViewById(bodyId)
         callToActionView = parentLayout.findViewById(callToActionId)
         mediaView = parentLayout.findViewById(mediaId)
-        advertiserView = parentLayout.findViewById(advertiserId)
+        attributionView = parentLayout.findViewById(attributionId)
+
+        attributionView.text = resource.getString(resource.getIdentifier(arguments["res_id_attribution"], "string", arguments["package_name"]))
     }
 }

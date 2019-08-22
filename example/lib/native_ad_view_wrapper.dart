@@ -23,13 +23,15 @@ class NativeAdViewWrapperState extends State<NativeAdViewWrapper>
         _controller = controller;
       },
       nativeAdParam: NativeAdParam()
+        ..placementId = "ca-app-pub-3940256099942544/2247696110"
         ..packageName = "sakebook.github.com.native_ads_example"
         ..layoutName = "native_ad_layout"
         ..headlineViewId = "text_heading"
         ..bodyViewId = "text_title"
         ..callToActionViewId = "text_call_to_action"
         ..mediaViewId = "video_thumbnail"
-        ..advertiserViewId = "text_publisher",
+        ..attributionViewId = "text_publisher"
+        ..attributionTextResId = "ad_attribution",
     );
   }
 }
