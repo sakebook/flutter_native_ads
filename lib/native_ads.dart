@@ -3,11 +3,5 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class NativeAds {
-  static const MethodChannel _channel =
-      const MethodChannel('native_ads');
-
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
-  }
+  static const MethodChannel _channel = const MethodChannel('native_ads');
 }

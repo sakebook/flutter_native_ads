@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:native_ads/layout_rules.dart';
-import 'package:native_ads/layout_views.dart';
 import 'package:native_ads/native_ad_param.dart';
 
 typedef void NativeAdViewCreatedCallback(NativeAdViewController controller);
@@ -10,7 +8,8 @@ typedef void NativeAdViewCreatedCallback(NativeAdViewController controller);
 class NativeAdView extends StatefulWidget {
   const NativeAdView({
     Key key,
-    this.onParentViewCreated, this.nativeAdParam,
+    this.onParentViewCreated,
+    this.nativeAdParam,
   }) : super(key: key);
 
   final NativeAdViewCreatedCallback onParentViewCreated;
@@ -49,24 +48,6 @@ class NativeAdViewController {
 
   final MethodChannel _channel;
 
-  Future<void> addHeadline({LayoutRules rule, LayoutViews view}) async {
-    return _channel.invokeMethod('addHeadline', {"rule": rule.toString(), "view": view.toString()});
-  }
-  Future<void> addImage({LayoutRules rule, LayoutViews view}) async {
-    return _channel.invokeMethod('addImage', {"rule": rule.toString(), "view": view.toString()});
-  }
-  Future<void> addBody({LayoutRules rule, LayoutViews view}) async {
-    return _channel.invokeMethod('addBody', {"rule": rule.toString(), "view": view.toString()});
-  }
-  Future<void> addIcon({LayoutRules rule, LayoutViews view}) async {
-    return _channel.invokeMethod('addIcon', {"rule": rule.toString(), "view": view.toString()});
-  }
-  Future<void> addCallToAction({LayoutRules rule, LayoutViews view}) async {
-    return _channel.invokeMethod('addCallToAction', {"rule": rule.toString(), "view": view.toString()});
-  }
-  Future<void> addMedia({LayoutRules rule, LayoutViews view}) async {
-    return _channel.invokeMethod('addMedia', {"rule": rule.toString(), "view": view.toString()});
-  }
   Future<void> setNativeAd() async {
     return _channel.invokeMethod('setNativeAd');
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:native_ads/native_ad_view.dart';
 import 'package:native_ads_example/native_ad_view_wrapper.dart';
 
 void main() => runApp(MyApp());
