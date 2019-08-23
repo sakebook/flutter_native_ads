@@ -1,5 +1,6 @@
 import Flutter
 import UIKit
+import GoogleMobileAds
 
 public class SwiftNativeAdsPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
@@ -13,6 +14,6 @@ public class SwiftNativeAdsPlugin: NSObject, FlutterPlugin {
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    result("iOS " + UIDevice.current.systemVersion)
+    GADMobileAds.sharedInstance().start(completionHandler: nil)
   }
 }

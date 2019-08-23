@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:native_ads_example/native_ad_view_wrapper.dart';
+import 'package:native_ads/native_ads.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  NativeAds.initialize();
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   @override

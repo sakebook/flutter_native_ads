@@ -1,5 +1,6 @@
 package sakebook.github.com.native_ads
 
+import com.google.android.gms.ads.MobileAds
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -7,11 +8,14 @@ import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
 
 class NativeAdsPlugin : MethodCallHandler {
+
     companion object {
+        private lateinit var registrar: Registrar
         @JvmStatic
         fun registerWith(registrar: Registrar) {
             val channel = MethodChannel(registrar.messenger(), "native_ads")
             channel.setMethodCallHandler(NativeAdsPlugin())
+            this.registrar = registrar
             registrar
                     .platformViewRegistry()
                     .registerViewFactory(
@@ -20,6 +24,9 @@ class NativeAdsPlugin : MethodCallHandler {
     }
 
     override fun onMethodCall(call: MethodCall, result: Result) {
-        result.notImplemented()
+        when(call.method) {
+            "initialize" -> MobileAds.initialize(registrar.context())
+            else -> result.notImplemented()
+        }
     }
 }
