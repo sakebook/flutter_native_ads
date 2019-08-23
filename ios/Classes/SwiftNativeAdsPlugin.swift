@@ -9,7 +9,7 @@ public class SwiftNativeAdsPlugin: NSObject, FlutterPlugin {
     registrar.addMethodCallDelegate(instance, channel: channel)
     registrar.register(
         UnifiedAdLayoutFactory(messeneger: registrar.messenger()),
-        withId: "com.github.sakebook/unified_ad_layout"
+        withId: "com.github.sakebook.ios/unified_ad_layout"
     )
   }
 

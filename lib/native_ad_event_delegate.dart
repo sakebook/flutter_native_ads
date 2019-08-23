@@ -6,8 +6,6 @@ class NativeAdEventDelegate {
     this.onAdLeftApplication,
     this.onAdClicked,
     this.onAdFailedToLoad,
-    this.onAdClosed,
-    this.onAdOpened,
     this.onAdLoaded,
   });
 
@@ -15,31 +13,29 @@ class NativeAdEventDelegate {
   final Function() onAdLeftApplication;
   final Function() onAdClicked;
   final Function(Map<String, dynamic>) onAdFailedToLoad;
-  final Function() onAdClosed;
-  final Function() onAdOpened;
   final Function() onAdLoaded;
 
   Future<dynamic> handleMethod(MethodCall call) async {
+    print("call: $call, ${call.method}");
     switch (call.method) {
       case 'onAdImpression':
+      case 'nativeAdDidRecordImpression':
         onAdImpression();
         break;
       case 'onAdLeftApplication':
+      case 'nativeAdWillLeaveApplication':
         onAdLeftApplication();
         break;
       case 'onAdClicked':
+      case 'nativeAdDidRecordClick':
         onAdClicked();
         break;
       case 'onAdFailedToLoad':
+      case 'didFailToReceiveAdWithError':
         onAdFailedToLoad(Map<String, dynamic>.from(call.arguments));
         break;
-      case 'onAdClosed':
-        onAdClosed();
-        break;
-      case 'onAdOpened':
-        onAdOpened();
-        break;
       case 'onAdLoaded':
+      case 'didReceive':
         onAdLoaded();
         break;
     }

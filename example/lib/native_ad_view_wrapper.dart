@@ -21,7 +21,7 @@ class NativeAdViewWrapperState extends State<NativeAdViewWrapper>
       onParentViewCreated: (controller) {
         _controller = controller;
       },
-      nativeAdParam: NativeAdParam()
+      androidParam: AndroidParam()
         ..placementId = "ca-app-pub-3940256099942544/2247696110" // test
         ..packageName = "sakebook.github.com.native_ads_example"
         ..layoutName = "native_ad_layout"
@@ -31,6 +31,12 @@ class NativeAdViewWrapperState extends State<NativeAdViewWrapper>
         ..mediaViewId = "video_thumbnail"
         ..attributionViewId = "text_publisher"
         ..attributionTextResId = "ad_attribution",
+      iosParam: IOSParam()
+        ..placementId = "ca-app-pub-3940256099942544/3986624511" // test
+        ..packageName = "sakebook.github.com.nativeAdsExample"
+        ..layoutName = "UnifiedNativeAdView"
+        ..attributionViewId = "attribution_view_id"
+        ..attributionText = "SPONSORED",
       onAdImpression: () => print("onAdImpression!!!"),
       onAdClicked: () => print("onAdClicked!!!"),
     );

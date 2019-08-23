@@ -28,7 +28,7 @@ class UnifiedAdLayout(private val context: Context, messenger: BinaryMessenger, 
     private lateinit var mediaView: MediaView
     private lateinit var attributionView: TextView
 
-    private val methodChannel: MethodChannel = MethodChannel(messenger, "com.github.sakebook/unified_ad_layout_$id")
+    private val methodChannel: MethodChannel = MethodChannel(messenger, "com.github.sakebook.android/unified_ad_layout_$id")
     private var ad: UnifiedNativeAd? = null
 
     init {

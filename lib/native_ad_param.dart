@@ -1,4 +1,4 @@
-class NativeAdParam {
+class AndroidParam {
   String placementId;
   String packageName;
   String layoutName;
@@ -24,6 +24,24 @@ class NativeAdParam {
       "view_id_media": mediaViewId,
       "view_id_attribution": attributionViewId,
       "res_id_attribution": attributionTextResId,
+    };
+  }
+}
+
+class IOSParam {
+  String placementId;
+  String packageName;
+  String layoutName;
+  String attributionViewId;
+  String attributionText;
+
+  dynamic toMap() {
+    return {
+      "placement_id": placementId,
+      "package_name": packageName,
+      "layout_name": layoutName,
+      "view_id_attribution": attributionViewId,
+      "text_attribution": attributionText,
     };
   }
 }

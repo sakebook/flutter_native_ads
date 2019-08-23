@@ -19,7 +19,7 @@ class NativeAdsPlugin : MethodCallHandler {
             registrar
                     .platformViewRegistry()
                     .registerViewFactory(
-                            "com.github.sakebook/unified_ad_layout", UnifiedAdLayoutFactory(registrar.messenger()))
+                            "com.github.sakebook.android/unified_ad_layout", UnifiedAdLayoutFactory(registrar.messenger()))
         }
     }
 

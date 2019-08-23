@@ -10,24 +10,22 @@ class NativeAdView extends StatefulWidget {
   const NativeAdView({
     Key key,
     this.onParentViewCreated,
-    this.nativeAdParam,
+    this.androidParam,
+    this.iosParam,
     this.onAdImpression,
     this.onAdLeftApplication,
     this.onAdClicked,
     this.onAdFailedToLoad,
-    this.onAdClosed,
-    this.onAdOpened,
     this.onAdLoaded,
   }) : super(key: key);
 
   final NativeAdViewCreatedCallback onParentViewCreated;
-  final NativeAdParam nativeAdParam;
+  final AndroidParam androidParam;
+  final IOSParam iosParam;
   final Function() onAdImpression;
   final Function() onAdLeftApplication;
   final Function() onAdClicked;
   final Function(Map<String, dynamic>) onAdFailedToLoad;
-  final Function() onAdClosed;
-  final Function() onAdOpened;
   final Function() onAdLoaded;
 
   @override
@@ -37,8 +35,6 @@ class NativeAdView extends StatefulWidget {
           onAdLeftApplication: onAdLeftApplication,
           onAdClicked: onAdClicked,
           onAdFailedToLoad: onAdFailedToLoad,
-          onAdClosed: onAdClosed,
-          onAdOpened: onAdOpened,
           onAdLoaded: onAdLoaded,
         ),
       );
@@ -51,20 +47,22 @@ class _NativeAdViewState extends State<NativeAdView> {
 
   @override
   Widget build(BuildContext context) {
+    print("defaultTargetPlatform: $defaultTargetPlatform");
     if (defaultTargetPlatform == TargetPlatform.android) {
       return AndroidView(
-        viewType: 'com.github.sakebook/unified_ad_layout',
+        viewType: 'com.github.sakebook.android/unified_ad_layout',
         onPlatformViewCreated: _onPlatformViewCreated,
-        creationParams: widget.nativeAdParam.toMap(),
+        creationParams: widget.androidParam.toMap(),
+        creationParamsCodec: StandardMessageCodec(),
+      );
+    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+      return UiKitView(
+        viewType: 'com.github.sakebook.ios/unified_ad_layout',
+        onPlatformViewCreated: _onPlatformViewCreated,
+        creationParams: widget.iosParam.toMap(),
         creationParamsCodec: StandardMessageCodec(),
       );
     }
-    return UiKitView(
-      viewType: 'com.github.sakebook/unified_ad_layout',
-      onPlatformViewCreated: _onPlatformViewCreated,
-      creationParams: widget.nativeAdParam.toMap(),
-      creationParamsCodec: StandardMessageCodec(),
-    );
     return Text(
         '$defaultTargetPlatform is not yet supported by the text_view plugin');
   }

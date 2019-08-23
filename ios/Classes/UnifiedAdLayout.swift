@@ -15,7 +15,13 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
     private let frame: CGRect
     private let viewId: Int64
     private let args: [String: Any]
+    private let adLoader: GADAdLoader
     
+    private let placementId: String
+    private let layoutName: String
+    private let attributionViewId: String
+    private let attributionText: String
+
     private weak var unifiedNativeAdView: GADUnifiedNativeAdView!
     private weak var headlineView: UILabel!
     private weak var bodyView: UILabel!
@@ -23,15 +29,20 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
     private weak var mediaView: GADMediaView!
     private weak var attributionView: UILabel!
     
-    let adLoader = GADAdLoader(adUnitID: "ca-app-pub-3940256099942544/3986624511", rootViewController: nil,
-                               adTypes: [ .unifiedNative ], options: nil)
-
+    
     init(frame: CGRect, viewId: Int64, args: [String: Any], messeneger: FlutterBinaryMessenger) {
         self.args = args
         self.messeneger = messeneger
         self.frame = frame
         self.viewId = viewId
-        channel = FlutterMethodChannel(name: "com.github.sakebook/unified_ad_layout_\(viewId)", binaryMessenger: messeneger)
+        self.placementId = self.args["placement_id"] as! String
+        self.layoutName = self.args["layout_name"] as! String
+        self.attributionViewId = self.args["view_id_attribution"] as! String
+        self.attributionText = self.args["text_attribution"] as! String
+
+        self.adLoader = GADAdLoader(adUnitID: placementId, rootViewController: nil,
+                    adTypes: [ .unifiedNative ], options: nil)
+        channel = FlutterMethodChannel(name: "com.github.sakebook.ios/unified_ad_layout_\(viewId)", binaryMessenger: messeneger)
     }
     
     private func fetchAd() {
@@ -42,7 +53,7 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
     }
     
     func view() -> UIView {
-        guard let nibObjects = Bundle.main.loadNibNamed("UnifiedNativeAdView", owner: nil, options: nil),
+        guard let nibObjects = Bundle.main.loadNibNamed(layoutName, owner: nil, options: nil),
             let adView = nibObjects.first as? GADUnifiedNativeAdView else {
                 assert(false, "Could not load nib file for adView")
         }
@@ -51,6 +62,9 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
         bodyView = adView.bodyView as? UILabel
         callToActionView = adView.callToActionView as? UILabel
         mediaView = adView.mediaView
+        attributionView = (adView as UIView).subviews.first(where: { (v) -> Bool in
+            v.restorationIdentifier == attributionViewId
+        }) as? UILabel
 
         fetchAd()
         return unifiedNativeAdView
@@ -65,14 +79,17 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
 extension UnifiedAdLayout : GADUnifiedNativeAdLoaderDelegate {
     func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: GADRequestError) {
         print("\(#function) called")
+        channel.invokeMethod("didFailToReceiveAdWithError", arguments: error)
     }
     
     public func adLoader(_ adLoader: GADAdLoader, didReceive nativeAd: GADUnifiedNativeAd) {
         print("\(#function) called")
+        channel.invokeMethod("didReceive", arguments: nil)
         headlineView.text = nativeAd.headline
         bodyView.text = nativeAd.body
         callToActionView.text = nativeAd.callToAction
         mediaView?.mediaContent = nativeAd.mediaContent
+        attributionView.text = attributionText
         unifiedNativeAdView.nativeAd = nativeAd
         // Set ourselves as the native ad delegate to be notified of native ad events.
         nativeAd.delegate = self
@@ -84,25 +101,31 @@ extension UnifiedAdLayout : GADUnifiedNativeAdDelegate {
     
     func nativeAdDidRecordClick(_ nativeAd: GADUnifiedNativeAd) {
         print("\(#function) called")
+        channel.invokeMethod("nativeAdDidRecordClick", arguments: nil)
     }
     
     func nativeAdDidRecordImpression(_ nativeAd: GADUnifiedNativeAd) {
         print("\(#function) called")
+        channel.invokeMethod("nativeAdDidRecordImpression", arguments: nil)
     }
     
     func nativeAdWillPresentScreen(_ nativeAd: GADUnifiedNativeAd) {
         print("\(#function) called")
+        channel.invokeMethod("nativeAdWillPresentScreen", arguments: nil)
     }
     
     func nativeAdWillDismissScreen(_ nativeAd: GADUnifiedNativeAd) {
         print("\(#function) called")
+        channel.invokeMethod("nativeAdWillDismissScreen", arguments: nil)
     }
     
     func nativeAdDidDismissScreen(_ nativeAd: GADUnifiedNativeAd) {
         print("\(#function) called")
+        channel.invokeMethod("nativeAdDidDismissScreen", arguments: nil)
     }
     
     func nativeAdWillLeaveApplication(_ nativeAd: GADUnifiedNativeAd) {
         print("\(#function) called")
+        channel.invokeMethod("nativeAdWillLeaveApplication", arguments: nil)
     }
 }
