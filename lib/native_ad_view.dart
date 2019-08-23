@@ -59,6 +59,12 @@ class _NativeAdViewState extends State<NativeAdView> {
         creationParamsCodec: StandardMessageCodec(),
       );
     }
+    return UiKitView(
+      viewType: 'com.github.sakebook/unified_ad_layout',
+      onPlatformViewCreated: _onPlatformViewCreated,
+      creationParams: widget.nativeAdParam.toMap(),
+      creationParamsCodec: StandardMessageCodec(),
+    );
     return Text(
         '$defaultTargetPlatform is not yet supported by the text_view plugin');
   }

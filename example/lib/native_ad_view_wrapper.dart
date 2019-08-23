@@ -16,7 +16,6 @@ class NativeAdViewWrapperState extends State<NativeAdViewWrapper>
 
   @override
   Widget build(BuildContext context) {
-    print("AdMobBannerWrapperState build");
     super.build(context);
     return NativeAdView(
       onParentViewCreated: (controller) {
