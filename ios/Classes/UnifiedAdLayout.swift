@@ -54,7 +54,7 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
     func view() -> UIView {
         guard let nibObjects = Bundle.main.loadNibNamed(layoutName, owner: nil, options: nil),
             let adView = nibObjects.first as? GADUnifiedNativeAdView else {
-                assert(false, "Could not load nib file for adView")
+                fatalError("Could not load nib file for adView")
         }
         unifiedNativeAdView = adView
         headlineView = adView.headlineView as? UILabel
