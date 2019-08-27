@@ -42,43 +42,26 @@ class UnifiedAdLayout(private val context: Context, messenger: BinaryMessenger, 
                 .withAdListener(object : AdListener() {
                     override fun onAdImpression() {
                         super.onAdImpression()
-                        Log.d("UnifiedAdLayout", "ad onAdImpression")
                         methodChannel.invokeMethod("onAdImpression", null)
                     }
 
                     override fun onAdLeftApplication() {
                         super.onAdLeftApplication()
-                        Log.d("UnifiedAdLayout", "ad onAdLeftApplication")
                         methodChannel.invokeMethod("onAdLeftApplication", null)
                     }
 
                     override fun onAdClicked() {
                         super.onAdClicked()
-                        Log.d("UnifiedAdLayout", "ad onAdClicked")
                         methodChannel.invokeMethod("onAdClicked", null)
                     }
 
-                    override fun onAdFailedToLoad(p0: Int) {
-                        super.onAdFailedToLoad(p0)
-                        Log.d("UnifiedAdLayout", "ad onAdFailedToLoad $p0")
-                        methodChannel.invokeMethod("onAdFailedToLoad", p0)
-                    }
-
-                    override fun onAdClosed() {
-                        super.onAdClosed()
-                        Log.d("UnifiedAdLayout", "ad onAdClosed")
-                        methodChannel.invokeMethod("onAdClosed", null)
-                    }
-
-                    override fun onAdOpened() {
-                        super.onAdOpened()
-                        Log.d("UnifiedAdLayout", "ad onAdOpened")
-                        methodChannel.invokeMethod("onAdOpened", null)
+                    override fun onAdFailedToLoad(errorCode: Int) {
+                        super.onAdFailedToLoad(errorCode)
+                        methodChannel.invokeMethod("onAdFailedToLoad", errorCode)
                     }
 
                     override fun onAdLoaded() {
                         super.onAdLoaded()
-                        Log.d("UnifiedAdLayout", "ad onAdLoaded")
                         methodChannel.invokeMethod("onAdLoaded", null)
                     }
                 })

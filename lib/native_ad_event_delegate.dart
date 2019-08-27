@@ -16,7 +16,6 @@ class NativeAdEventDelegate {
   final Function() onAdLoaded;
 
   Future<dynamic> handleMethod(MethodCall call) async {
-    print("call: $call, ${call.method}");
     switch (call.method) {
       case 'onAdImpression':
       case 'nativeAdDidRecordImpression':

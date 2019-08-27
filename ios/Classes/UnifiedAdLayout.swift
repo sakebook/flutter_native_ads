@@ -77,12 +77,10 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
 
 extension UnifiedAdLayout : GADUnifiedNativeAdLoaderDelegate {
     func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: GADRequestError) {
-        print("\(#function) called error: \(error)")
         channel.invokeMethod("didFailToReceiveAdWithError", arguments: error.description)
     }
     
     public func adLoader(_ adLoader: GADAdLoader, didReceive nativeAd: GADUnifiedNativeAd) {
-        print("\(#function) called")
         channel.invokeMethod("didReceive", arguments: nil)
         headlineView.text = nativeAd.headline
         bodyView.text = nativeAd.body
@@ -99,32 +97,14 @@ extension UnifiedAdLayout : GADUnifiedNativeAdLoaderDelegate {
 extension UnifiedAdLayout : GADUnifiedNativeAdDelegate {
     
     func nativeAdDidRecordClick(_ nativeAd: GADUnifiedNativeAd) {
-        print("\(#function) called")
         channel.invokeMethod("nativeAdDidRecordClick", arguments: nil)
     }
     
     func nativeAdDidRecordImpression(_ nativeAd: GADUnifiedNativeAd) {
-        print("\(#function) called")
         channel.invokeMethod("nativeAdDidRecordImpression", arguments: nil)
     }
     
-    func nativeAdWillPresentScreen(_ nativeAd: GADUnifiedNativeAd) {
-        print("\(#function) called")
-        channel.invokeMethod("nativeAdWillPresentScreen", arguments: nil)
-    }
-    
-    func nativeAdWillDismissScreen(_ nativeAd: GADUnifiedNativeAd) {
-        print("\(#function) called")
-        channel.invokeMethod("nativeAdWillDismissScreen", arguments: nil)
-    }
-    
-    func nativeAdDidDismissScreen(_ nativeAd: GADUnifiedNativeAd) {
-        print("\(#function) called")
-        channel.invokeMethod("nativeAdDidDismissScreen", arguments: nil)
-    }
-    
     func nativeAdWillLeaveApplication(_ nativeAd: GADUnifiedNativeAd) {
-        print("\(#function) called")
         channel.invokeMethod("nativeAdWillLeaveApplication", arguments: nil)
     }
 }
