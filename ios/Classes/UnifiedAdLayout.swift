@@ -48,7 +48,6 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
     private func fetchAd() {
         adLoader.delegate = self
         let request = GADRequest()
-        request.testDevices = ["c1427b59788f3ef47a8e02b92bc4b41c"]
         adLoader.load(request)
     }
     
@@ -78,8 +77,8 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
 
 extension UnifiedAdLayout : GADUnifiedNativeAdLoaderDelegate {
     func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: GADRequestError) {
-        print("\(#function) called")
-        channel.invokeMethod("didFailToReceiveAdWithError", arguments: error)
+        print("\(#function) called error: \(error)")
+        channel.invokeMethod("didFailToReceiveAdWithError", arguments: error.description)
     }
     
     public func adLoader(_ adLoader: GADAdLoader, didReceive nativeAd: GADUnifiedNativeAd) {

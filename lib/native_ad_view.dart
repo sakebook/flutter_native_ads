@@ -47,7 +47,6 @@ class _NativeAdViewState extends State<NativeAdView> {
 
   @override
   Widget build(BuildContext context) {
-    print("defaultTargetPlatform: $defaultTargetPlatform");
     if (defaultTargetPlatform == TargetPlatform.android) {
       return AndroidView(
         viewType: 'com.github.sakebook.android/unified_ad_layout',
@@ -79,7 +78,17 @@ class _NativeAdViewState extends State<NativeAdView> {
 
 class NativeAdViewController {
   NativeAdViewController._(int id)
-      : _channel = MethodChannel('com.github.sakebook/unified_ad_layout_$id');
+  : _channel = _createChannel(id);
 
   final MethodChannel _channel;
+
+  static MethodChannel _createChannel(int id) {
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      return MethodChannel('com.github.sakebook.android/unified_ad_layout_$id');
+    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+      return MethodChannel('com.github.sakebook.ios/unified_ad_layout_$id');
+    } else {
+      return throw MissingPluginException();
+    }
+  }
 }
