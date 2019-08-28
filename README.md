@@ -77,11 +77,11 @@ Use [`com.google.android.gms.ads.formats.MediaView`](https://developers.google.c
 [example](https://github.com/sakebook/flutter_native_ads/blob/master/example/android/app/src/main/res/layout/native_ad_layout.xml)
 
 ### iOS
-Please set GADUnifiedNativeAdView for the parent.
+Please set [GADUnifiedNativeAdView](https://developers.google.com/admob/ios/api/reference/Classes/GADUnifiedNativeAdView) for the parent.
 
 ![image](https://raw.githubusercontent.com/sakebook/flutter_native_ads/master/art/ios_unified_native_ad_view.png)
 
-Please set GADMediaView to MediaView.
+Please set [GADMediaView](https://developers.google.com/admob/ios/api/reference/Classes/GADMediaView) to MediaView.
 
 ![image](https://raw.githubusercontent.com/sakebook/flutter_native_ads/master/art/ios_media_view.png)
 
@@ -122,23 +122,23 @@ class MyApp extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     width: double.infinity,
-                    height: 120,
+                    height: 320,
                     child: NativeAdView(
-                      onParentViewCreated: (_) {},
+                      onParentViewCreated: (_) {
+                      },
                       androidParam: AndroidParam()
-                        ..placementId =
-                            "ca-app-pub-3940256099942544/2247696110" // test
+                        ..placementId = "ca-app-pub-3940256099942544/2247696110" // test
                         ..packageName = "sakebook.github.com.native_ads_example"
                         ..layoutName = "native_ad_layout"
                         ..attributionText = "AD",
                       iosParam: IOSParam()
-                        ..placementId =
-                            "ca-app-pub-3940256099942544/3986624511" // test
-                        ..packageName = "sakebook.github.com.nativeAdsExample"
+                        ..placementId = "ca-app-pub-3940256099942544/3986624511" // test
+                        ..bundleId = "sakebook.github.com.nativeAdsExample"
                         ..layoutName = "UnifiedNativeAdView"
                         ..attributionText = "SPONSORED",
                       onAdImpression: () => print("onAdImpression!!!"),
                       onAdClicked: () => print("onAdClicked!!!"),
+                      onAdFailedToLoad: (Map<String, dynamic> error) => print("onAdFailedToLoad!!! $error"),
                     ),
                   ),
                 );
