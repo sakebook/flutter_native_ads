@@ -16,17 +16,15 @@ class AndroidParam {
 
 class IOSParam {
   String placementId;
-  String packageName;
+  String bundleId;
   String layoutName;
-  String attributionViewId;
   String attributionText;
 
   dynamic toMap() {
     return {
       "placement_id": placementId,
-      "package_name": packageName,
+      "bundle_id": bundleId,
       "layout_name": layoutName,
-      "view_id_attribution": attributionViewId,
       "text_attribution": attributionText,
     };
   }

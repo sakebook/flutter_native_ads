@@ -28,12 +28,12 @@ class NativeAdViewWrapperState extends State<NativeAdViewWrapper>
         ..attributionText = "広告",
       iosParam: IOSParam()
         ..placementId = "ca-app-pub-3940256099942544/3986624511" // test
-        ..packageName = "sakebook.github.com.nativeAdsExample"
+        ..bundleId = "sakebook.github.com.nativeAdsExample"
         ..layoutName = "UnifiedNativeAdView"
-        ..attributionViewId = "attribution_view_id"
         ..attributionText = "SPONSORED",
       onAdImpression: () => print("onAdImpression!!!"),
       onAdClicked: () => print("onAdClicked!!!"),
+      onAdFailedToLoad: (Map<String, dynamic> error) => print("onAdFailedToLoad!!! $error"),
     );
   }
 }

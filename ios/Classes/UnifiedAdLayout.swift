@@ -19,7 +19,6 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
     
     private let placementId: String
     private let layoutName: String
-    private let attributionViewId: String
     private let attributionText: String
 
     private weak var unifiedNativeAdView: GADUnifiedNativeAdView!
@@ -29,7 +28,6 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
     private weak var mediaView: GADMediaView!
     private weak var attributionView: UILabel!
     
-    
     init(frame: CGRect, viewId: Int64, args: [String: Any], messeneger: FlutterBinaryMessenger) {
         self.args = args
         self.messeneger = messeneger
@@ -37,7 +35,6 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
         self.viewId = viewId
         self.placementId = self.args["placement_id"] as! String
         self.layoutName = self.args["layout_name"] as! String
-        self.attributionViewId = self.args["view_id_attribution"] as! String
         self.attributionText = self.args["text_attribution"] as! String
 
         self.adLoader = GADAdLoader(adUnitID: placementId, rootViewController: nil,
@@ -61,9 +58,12 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
         bodyView = adView.bodyView as? UILabel
         callToActionView = adView.callToActionView as? UILabel
         mediaView = adView.mediaView
-        attributionView = (adView as UIView).subviews.first(where: { (v) -> Bool in
-            v.restorationIdentifier == attributionViewId
-        }) as? UILabel
+        guard let attributionLabel = (adView as UIView).subviews.first(where: { (v) -> Bool in
+            v.restorationIdentifier == "flutter_native_ad_attribution_view_id"
+        }) as? UILabel else {
+            fatalError("Could not find Restoration ID 'flutter_native_ad_attribution_view_id'")
+        }
+        attributionView = attributionLabel
 
         fetchAd()
         return unifiedNativeAdView
@@ -77,7 +77,7 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
 
 extension UnifiedAdLayout : GADUnifiedNativeAdLoaderDelegate {
     func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: GADRequestError) {
-        channel.invokeMethod("didFailToReceiveAdWithError", arguments: error.description)
+        channel.invokeMethod("didFailToReceiveAdWithError", arguments: error.userInfo)
     }
     
     public func adLoader(_ adLoader: GADAdLoader, didReceive nativeAd: GADUnifiedNativeAd) {
