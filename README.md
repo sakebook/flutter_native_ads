@@ -3,9 +3,7 @@
 Flutter native ads with PlatformView
 
 ## Getting Started
-### setup
-
-#### Android
+### Android
 - [AndroidManifest changes](https://developers.google.com/admob/android/quick-start#update_your_androidmanifestxml)
 
 AdMob 17 requires the App ID to be included in the `AndroidManifest.xml`. Failure
@@ -20,7 +18,7 @@ to do so will result in a crash on launch of your app.  The line should look lik
 where `[ADMOB_APP_ID]` is your App ID.  You must pass the same value when you 
 initialize the plugin in your Dart code.
 
-#### iOS
+### iOS
 - [Info.plist changes](https://developers.google.com/admob/ios/quick-start#update_your_infoplist)
 
 Admob 7.42.0 requires the App ID to be included in `Info.plist`. Failure to do so will result in a crash on launch of your app. The lines should look like:
@@ -39,20 +37,46 @@ And PlatformView
 <true/>
 ```
 
-### Layout file
+## Layout
 This plugin supported custom layout
 
-#### Android
+### Android
 You can use anything if the parent is a ViewGroup.
 The example uses RelativeLayout.
 
-Use `com.google.android.gms.ads.formats.MediaView` for MediaView.
+Use [`com.google.android.gms.ads.formats.UnifiedNativeAdView`](https://developers.google.com/android/reference/com/google/android/gms/ads/formats/UnifiedNativeAdView) for the parent.
 
-Please give any ID to each view.
+![image](https://raw.githubusercontent.com/sakebook/flutter_native_ads/master/art/android_unified_native_ad_view.png)
 
-![image](https://raw.githubusercontent.com/sakebook/flutter_native_ads/master/art/android_mevia_view.png)
+Use [`com.google.android.gms.ads.formats.MediaView`](https://developers.google.com/android/reference/com/google/android/gms/ads/formats/MediaView) for MediaView.
 
-#### iOS
+![image](https://raw.githubusercontent.com/sakebook/flutter_native_ads/master/art/android_media_view.png)
+
+- xml
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.gms.ads.formats.UnifiedNativeAdView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/flutter_native_ad_unified_native_ad"
+    ...
+    
+    <!-- ViewGroup -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        ...
+
+        <com.google.android.gms.ads.formats.MediaView
+            android:id="@+id/flutter_native_ad_media"
+            ...
+```
+
+[example](https://github.com/sakebook/flutter_native_ads/blob/master/example/android/app/src/main/res/layout/native_ad_layout.xml)
+
+### iOS
 Please set GADUnifiedNativeAdView for the parent.
 
 ![image](https://raw.githubusercontent.com/sakebook/flutter_native_ads/master/art/ios_unified_native_ad_view.png)
@@ -65,7 +89,10 @@ Please set Restoration ID for View that displays attribution
 
 ![image](https://raw.githubusercontent.com/sakebook/flutter_native_ads/master/art/ios_attribution.png)
 
-### Usage
+[example](https://github.com/sakebook/flutter_native_ads/blob/master/example/ios/Runner/UnifiedNativeAdView.xib)
+
+
+## Usage
 
 ```dart
 import 'package:flutter/material.dart';
@@ -103,18 +130,12 @@ class MyApp extends StatelessWidget {
                             "ca-app-pub-3940256099942544/2247696110" // test
                         ..packageName = "sakebook.github.com.native_ads_example"
                         ..layoutName = "native_ad_layout"
-                        ..headlineViewId = "text_heading"
-                        ..bodyViewId = "text_title"
-                        ..callToActionViewId = "text_call_to_action"
-                        ..mediaViewId = "video_thumbnail"
-                        ..attributionViewId = "text_publisher"
-                        ..attributionTextResId = "ad_attribution",
+                        ..attributionText = "AD",
                       iosParam: IOSParam()
                         ..placementId =
                             "ca-app-pub-3940256099942544/3986624511" // test
                         ..packageName = "sakebook.github.com.nativeAdsExample"
                         ..layoutName = "UnifiedNativeAdView"
-                        ..attributionViewId = "attribution_view_id"
                         ..attributionText = "SPONSORED",
                       onAdImpression: () => print("onAdImpression!!!"),
                       onAdClicked: () => print("onAdClicked!!!"),
@@ -141,7 +162,34 @@ class MyApp extends StatelessWidget {
 }
 ```
 
-#### Event callback
+## Mapping Native Ads to Layout
+Need to mapping the view
+
+### Android
+Mapping by view id
+
+|Field|ID|
+|:---:|:---:|
+|Headline|flutter_native_ad_headline|
+|Body|flutter_native_ad_body|
+|MediaView|flutter_native_ad_media|
+|Call To Action|flutter_native_ad_call_to_action|
+|Attribution|flutter_native_ad_attribution|
+
+### iOS
+Mapping by Outlet
+
+![image](https://raw.githubusercontent.com/sakebook/flutter_native_ads/master/art/ios_mapping.png)
+
+## Supported native ads fields
+- Headline
+- Body
+- Media
+- Call To Action
+- Ad Attribution
+
+
+## Event callback
 Receive callbacks for some events by passing to the NativeAdView constructor
 
 - onAdImpression
