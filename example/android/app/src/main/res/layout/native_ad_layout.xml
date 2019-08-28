@@ -1,97 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.gms.ads.formats.UnifiedNativeAdView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/flutter_native_ad_unified_native_ad"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/text_heading"
-        android:layout_toLeftOf="@+id/media_thumbnail"
-        android:layout_alignTop="@+id/media_thumbnail"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        android:maxLines="2"
-        android:ellipsize="end"
-        tools:ignore="RtlHardcoded" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/text_title"
-        android:layout_below="@+id/text_heading"
-        android:layout_toLeftOf="@+id/media_thumbnail"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:textColor="@android:color/black"
-        android:textSize="14sp"
-        tools:text="sample title. sample title. sample title. sample title. sample title. sample title"
-        tools:ignore="RtlHardcoded" />
-
-
-    <TextView
-        android:id="@+id/text_publisher"
-        android:layout_alignBottom="@+id/media_thumbnail"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="12dp"
-        android:textSize="12sp"
-        android:ellipsize="middle"
-        android:textColor="@android:color/darker_gray"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:singleLine="true" />
-
-    <TextView
-        android:id="@+id/text_call_to_action"
-        android:layout_alignBottom="@+id/media_thumbnail"
-        android:layout_toLeftOf="@+id/media_thumbnail"
-        android:layout_alignWithParentIfMissing="true"
-        android:layout_marginRight="12dp"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:includeFontPadding="false"
-        android:ellipsize="middle"
-        android:textColor="@android:color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:singleLine="true" />
-
-    <FrameLayout
-        android:id="@+id/media_thumbnail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="12dp">
-
-        <ImageView
-            android:id="@+id/image_thumbnail"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:scaleType="centerCrop"
+        <TextView
+            android:id="@+id/flutter_native_ad_headline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
             tools:ignore="RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/flutter_native_ad_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/flutter_native_ad_headline"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="12dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            tools:ignore="RtlHardcoded"
+            tools:text="sample title. sample title. sample title. sample title. sample title. sample title" />
 
         <com.google.android.gms.ads.formats.MediaView
-            android:id="@+id/video_thumbnail"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:visibility="visible"
-            tools:ignore="RtlHardcoded" />
+            android:id="@+id/flutter_native_ad_media"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_below="@+id/flutter_native_ad_body"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp" />
 
-    </FrameLayout>
-</RelativeLayout>
+        <TextView
+            android:id="@+id/flutter_native_ad_attribution"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:ellipsize="middle"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/flutter_native_ad_call_to_action"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/rounded_corner"
+            android:ellipsize="middle"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+</com.google.android.gms.ads.formats.UnifiedNativeAdView>
+
+

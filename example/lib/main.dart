@@ -1,30 +1,20 @@
 import 'package:flutter/material.dart';
 
-import 'package:native_ads_example/native_ad_view_wrapper.dart';
 import 'package:native_ads/native_ads.dart';
+import 'package:native_ads_example/native_ad_view_wrapper.dart';
 
 void main() {
   NativeAds.initialize();
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('NativeAds example app'),
         ),
         body: Center(
           child: ListView.separated(
@@ -34,7 +24,7 @@ class _MyAppState extends State<MyApp> {
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     width: double.infinity,
-                    height: 120,
+                    height: 320,
                     child: NativeAdViewWrapper(),
                   ),
                 );
@@ -42,7 +32,7 @@ class _MyAppState extends State<MyApp> {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "this is text ${index}",
+                    "this is text $index",
                     style: Theme.of(context).textTheme.body1,
                   ),
                 );

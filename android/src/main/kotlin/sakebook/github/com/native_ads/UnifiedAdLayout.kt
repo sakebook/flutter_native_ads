@@ -1,9 +1,7 @@
 package sakebook.github.com.native_ads
 
 import android.content.Context
-import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
@@ -16,24 +14,23 @@ import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.platform.PlatformView
 
-class UnifiedAdLayout(private val context: Context, messenger: BinaryMessenger, id: Int, arguments: HashMap<String, String>) : PlatformView {
+class UnifiedAdLayout(context: Context, messenger: BinaryMessenger, id: Int, arguments: HashMap<String, String>) : PlatformView {
 
-    private val layoutRes = context.resources.getIdentifier(arguments["layout_name"], "layout", arguments["package_name"])
-    private val unifiedNativeAdView: UnifiedNativeAdView = UnifiedNativeAdView(context)
-    private val parentLayout: ViewGroup = View.inflate(context, layoutRes, null) as ViewGroup
-
-    private lateinit var headlineView: TextView
-    private lateinit var bodyView: TextView
-    private lateinit var callToActionView: TextView
-    private lateinit var mediaView: MediaView
-    private lateinit var attributionView: TextView
+    private val hostPackageName = arguments["package_name"]
+    private val layoutRes = context.resources.getIdentifier(arguments["layout_name"], "layout", hostPackageName)
+    private val unifiedNativeAdView: UnifiedNativeAdView = View.inflate(context, layoutRes, null) as UnifiedNativeAdView
+    private val headlineView: TextView = unifiedNativeAdView.findViewById(context.resources.getIdentifier("flutter_native_ad_headline", "id", hostPackageName))
+    private val bodyView: TextView = unifiedNativeAdView.findViewById(context.resources.getIdentifier("flutter_native_ad_body", "id", hostPackageName))
+    private val callToActionView: TextView = unifiedNativeAdView.findViewById(context.resources.getIdentifier("flutter_native_ad_call_to_action", "id", hostPackageName))
+    private val mediaView: MediaView = unifiedNativeAdView.findViewById(context.resources.getIdentifier("flutter_native_ad_media", "id", hostPackageName))
 
     private val methodChannel: MethodChannel = MethodChannel(messenger, "com.github.sakebook.android/unified_ad_layout_$id")
     private var ad: UnifiedNativeAd? = null
 
     init {
-        unifiedNativeAdView.addView(parentLayout)
-        mappingView(arguments)
+        unifiedNativeAdView.findViewById<TextView>(context.resources.getIdentifier("flutter_native_ad_attribution", "id", hostPackageName)).apply {
+            this.text = arguments["text_attribution"]
+        }
         AdLoader.Builder(context, arguments["placement_id"])
                 .forUnifiedNativeAd {
                     ad = it
@@ -94,22 +91,5 @@ class UnifiedAdLayout(private val context: Context, messenger: BinaryMessenger, 
         unifiedNativeAdView.mediaView = mediaView
 
         unifiedNativeAdView.setNativeAd(ad)
-    }
-
-    private fun mappingView(arguments: HashMap<String, String>) {
-        val resource = context.resources
-        val headlineId = resource.getIdentifier(arguments["view_id_headline"], "id", arguments["package_name"])
-        val bodyId = resource.getIdentifier(arguments["view_id_body"], "id", arguments["package_name"])
-        val callToActionId = resource.getIdentifier(arguments["view_id_call_to_action"], "id", arguments["package_name"])
-        val mediaId = resource.getIdentifier(arguments["view_id_media"], "id", arguments["package_name"])
-        val attributionId = resource.getIdentifier(arguments["view_id_attribution"], "id", arguments["package_name"])
-
-        headlineView = parentLayout.findViewById(headlineId)
-        bodyView = parentLayout.findViewById(bodyId)
-        callToActionView = parentLayout.findViewById(callToActionId)
-        mediaView = parentLayout.findViewById(mediaId)
-        attributionView = parentLayout.findViewById(attributionId)
-
-        attributionView.text = resource.getString(resource.getIdentifier(arguments["res_id_attribution"], "string", arguments["package_name"]))
     }
 }
