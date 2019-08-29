@@ -2,6 +2,10 @@
 
 Flutter native ads with PlatformView
 
+|Android|iOS|
+|:---:|:---:|
+|![image](https://raw.githubusercontent.com/sakebook/flutter_native_ads/master/art/android_capture.png)|![image](https://raw.githubusercontent.com/sakebook/flutter_native_ads/master/art/ios_capture.png)|
+
 ## Getting Started
 ### Android
 - [AndroidManifest changes](https://developers.google.com/admob/android/quick-start#update_your_androidmanifestxml)
@@ -91,6 +95,25 @@ Please set Restoration ID for View that displays attribution
 
 [example](https://github.com/sakebook/flutter_native_ads/blob/master/example/ios/Runner/UnifiedNativeAdView.xib)
 
+## Mapping Native Ads to Layout
+Need to mapping the view
+
+### Android
+Mapping by view id
+
+|View|ID|
+|:---:|:---:|
+|UnifiedNativeAdView|flutter_native_ad_unified_native_ad|
+|Headline|flutter_native_ad_headline|
+|Body|flutter_native_ad_body|
+|MediaView|flutter_native_ad_media|
+|Call To Action|flutter_native_ad_call_to_action|
+|Attribution|flutter_native_ad_attribution|
+
+### iOS
+Mapping by Outlet
+
+![image](https://raw.githubusercontent.com/sakebook/flutter_native_ads/master/art/ios_mapping.png)
 
 ## Usage
 
@@ -161,25 +184,6 @@ class MyApp extends StatelessWidget {
   }
 }
 ```
-
-## Mapping Native Ads to Layout
-Need to mapping the view
-
-### Android
-Mapping by view id
-
-|Field|ID|
-|:---:|:---:|
-|Headline|flutter_native_ad_headline|
-|Body|flutter_native_ad_body|
-|MediaView|flutter_native_ad_media|
-|Call To Action|flutter_native_ad_call_to_action|
-|Attribution|flutter_native_ad_attribution|
-
-### iOS
-Mapping by Outlet
-
-![image](https://raw.githubusercontent.com/sakebook/flutter_native_ads/master/art/ios_mapping.png)
 
 ## Supported native ads fields
 - Headline
