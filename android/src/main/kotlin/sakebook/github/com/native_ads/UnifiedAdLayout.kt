@@ -54,7 +54,7 @@ class UnifiedAdLayout(context: Context, messenger: BinaryMessenger, id: Int, arg
 
                     override fun onAdFailedToLoad(errorCode: Int) {
                         super.onAdFailedToLoad(errorCode)
-                        methodChannel.invokeMethod("onAdFailedToLoad", errorCode)
+                        methodChannel.invokeMethod("onAdFailedToLoad", hashMapOf("errorCode" to errorCode))
                     }
 
                     override fun onAdLoaded() {

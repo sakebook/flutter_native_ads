@@ -77,7 +77,7 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
 
 extension UnifiedAdLayout : GADUnifiedNativeAdLoaderDelegate {
     func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: GADRequestError) {
-        channel.invokeMethod("didFailToReceiveAdWithError", arguments: error.userInfo)
+        channel.invokeMethod("didFailToReceiveAdWithError", arguments: ["errorCode": error.code, "message": error.localizedDescription])
     }
     
     public func adLoader(_ adLoader: GADAdLoader, didReceive nativeAd: GADUnifiedNativeAd) {
