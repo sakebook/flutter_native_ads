@@ -5,11 +5,11 @@ class AndroidParam {
   String attributionText;
 
   dynamic toMap() {
-    return {
-      "placement_id": placementId,
-      "package_name": packageName,
-      "layout_name": layoutName,
-      "text_attribution": attributionText,
+    return <String, String>{
+      'placement_id': placementId,
+      'package_name': packageName,
+      'layout_name': layoutName,
+      'text_attribution': attributionText,
     };
   }
 }
@@ -21,11 +21,11 @@ class IOSParam {
   String attributionText;
 
   dynamic toMap() {
-    return {
-      "placement_id": placementId,
-      "bundle_id": bundleId,
-      "layout_name": layoutName,
-      "text_attribution": attributionText,
+    return <String, String>{
+      'placement_id': placementId,
+      'bundle_id': bundleId,
+      'layout_name': layoutName,
+      'text_attribution': attributionText,
     };
   }
 }

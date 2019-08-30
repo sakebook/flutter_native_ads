@@ -4,7 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:native_ads/native_ad_event_delegate.dart';
 import 'package:native_ads/native_ad_param.dart';
 
-typedef void NativeAdViewCreatedCallback(NativeAdViewController controller);
+typedef NativeAdViewCreatedCallback = void Function(
+    NativeAdViewController controller);
 
 class NativeAdView extends StatefulWidget {
   const NativeAdView({
@@ -41,9 +42,9 @@ class NativeAdView extends StatefulWidget {
 }
 
 class _NativeAdViewState extends State<NativeAdView> {
-  final NativeAdEventDelegate delegate;
-
   _NativeAdViewState(this.delegate);
+
+  final NativeAdEventDelegate delegate;
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +53,14 @@ class _NativeAdViewState extends State<NativeAdView> {
         viewType: 'com.github.sakebook.android/unified_ad_layout',
         onPlatformViewCreated: _onPlatformViewCreated,
         creationParams: widget.androidParam.toMap(),
-        creationParamsCodec: StandardMessageCodec(),
+        creationParamsCodec: const StandardMessageCodec(),
       );
     } else if (defaultTargetPlatform == TargetPlatform.iOS) {
       return UiKitView(
         viewType: 'com.github.sakebook.ios/unified_ad_layout',
         onPlatformViewCreated: _onPlatformViewCreated,
         creationParams: widget.iosParam.toMap(),
-        creationParamsCodec: StandardMessageCodec(),
+        creationParamsCodec: const StandardMessageCodec(),
       );
     }
     return Text(
@@ -70,7 +71,7 @@ class _NativeAdViewState extends State<NativeAdView> {
     if (widget.onParentViewCreated == null) {
       return;
     }
-    final controller = NativeAdViewController._(id);
+    final NativeAdViewController controller = NativeAdViewController._(id);
     controller._channel.setMethodCallHandler(delegate.handleMethod);
     widget.onParentViewCreated(controller);
   }

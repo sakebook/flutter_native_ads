@@ -1,9 +1,8 @@
 import 'package:flutter/services.dart';
 
 class NativeAds {
-  static const MethodChannel _channel = const MethodChannel('native_ads');
-
   NativeAds.initialize() {
-    _channel.invokeListMethod("initialize");
+    _channel.invokeListMethod<void>('initialize');
   }
+  static const MethodChannel _channel = MethodChannel('native_ads');
 }
