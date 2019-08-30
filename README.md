@@ -1,6 +1,7 @@
 # flutter_native_ads
+[![version](https://img.shields.io/pub/v/native_ads.svg?style=flat-square)](https://pub.dartlang.org/packages/native_ads)
 
-Flutter native ads with PlatformView
+Flutter plugin for AdMob Native Ads. Compatible with Android and iOS using PlatformView.
 
 |Android|iOS|
 |:---:|:---:|
