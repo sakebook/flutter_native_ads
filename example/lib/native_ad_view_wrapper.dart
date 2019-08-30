@@ -33,7 +33,8 @@ class NativeAdViewWrapperState extends State<NativeAdViewWrapper>
         ..attributionText = "SPONSORED",
       onAdImpression: () => print("onAdImpression!!!"),
       onAdClicked: () => print("onAdClicked!!!"),
-      onAdFailedToLoad: (Map<String, dynamic> error) => print("onAdFailedToLoad!!! $error"),
+      onAdFailedToLoad: (Map<String, dynamic> error) =>
+          print("onAdFailedToLoad!!! $error"),
     );
   }
 }

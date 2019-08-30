@@ -77,8 +77,7 @@ class _NativeAdViewState extends State<NativeAdView> {
 }
 
 class NativeAdViewController {
-  NativeAdViewController._(int id)
-  : _channel = _createChannel(id);
+  NativeAdViewController._(int id) : _channel = _createChannel(id);
 
   final MethodChannel _channel;
 
