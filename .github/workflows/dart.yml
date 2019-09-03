@@ -1,4 +1,4 @@
-name: Dart CI
+name: Flutter CI
 
 on: [push]
 
@@ -6,12 +6,14 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    
+
     container:
       image: cirrusci/flutter:stable
-    
+
     steps:
     - uses: actions/checkout@v1
+    - name: Check
+    - run: flutter doctor -vv
     - name: Install dependencies
       run: flutter pub get
     - name: Run tests
