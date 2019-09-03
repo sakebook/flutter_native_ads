@@ -12,6 +12,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Config
+      run: flutter config --no-analytics
     - name: Check
       run: flutter doctor -vv
     - name: Install dependencies
