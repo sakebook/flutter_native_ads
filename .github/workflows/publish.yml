@@ -22,4 +22,4 @@ jobs:
       - name: Check plugin information
         run: flutter pub pub publish --dry-run
       - name: Publish
-        run: flutter pub pub publish
+        run: flutter pub pub publish -f
