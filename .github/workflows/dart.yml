@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: cirrusci/flutter:stable
+      image: cirrusci/flutter:beta
       options: -u root
 
     steps:
