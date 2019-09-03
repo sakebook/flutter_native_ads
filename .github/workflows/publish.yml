@@ -1,0 +1,24 @@
+name: Publish plugin
+
+on:
+  release:
+
+jobs:
+  publish:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image: cirrusci/flutter:beta
+      options: -u root
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Run tests
+        run: flutter test
+      - name: Check plugin information
+        run: flutter pub pub publish --dry-run
+      - name: Publish
+        run: flutter pub pub publish
