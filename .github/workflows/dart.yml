@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Check
-    - run: flutter doctor -vv
+      run: flutter doctor -vv
     - name: Install dependencies
       run: flutter pub get
     - name: Run tests
