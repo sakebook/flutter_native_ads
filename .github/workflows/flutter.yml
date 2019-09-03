@@ -1,6 +1,9 @@
 name: Flutter CI
 
 on:
+  pull_request:
+    branches:
+      - master
   push:
     branches:
       - master
