@@ -1,6 +1,10 @@
 name: Flutter CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+      - '!*.*.*'
 
 jobs:
   build:
@@ -13,8 +17,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Check
-      run: flutter doctor -v
     - name: Install dependencies
       run: flutter pub get
     - name: Run tests
