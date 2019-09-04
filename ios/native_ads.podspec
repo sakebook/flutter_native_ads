@@ -4,6 +4,7 @@
 Pod::Spec.new do |s|
   s.name             = 'native_ads'
   s.version          = '0.0.1'
+  s.swift_version    = '5.0'
   s.summary          = 'Flutter native ads with PlatformView'
   s.description      = <<-DESC
 Flutter native ads with PlatformView

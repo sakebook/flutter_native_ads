@@ -18,28 +18,28 @@ class MyApp extends StatelessWidget {
         ),
         body: Center(
           child: ListView.separated(
-            itemBuilder: (context, index) {
+            itemBuilder: (BuildContext context, int index) {
               if (index % 10 == 0) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     width: double.infinity,
                     height: 320,
-                    child: NativeAdViewWrapper(),
+                    child: const NativeAdViewWrapper(),
                   ),
                 );
               } else {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "this is text $index",
+                    'this is text $index',
                     style: Theme.of(context).textTheme.body1,
                   ),
                 );
               }
             },
             itemCount: 50,
-            separatorBuilder: (context, _) => const Divider(),
+            separatorBuilder: (BuildContext context, _) => const Divider(),
           ),
         ),
       ),
