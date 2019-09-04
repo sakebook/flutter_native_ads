@@ -1,8 +1,9 @@
 name: Publish plugin
 
 on:
-  release:
-
+  create:
+    tags:
+      - '\d+\.\d+\.\d+'
 jobs:
   publish:
 
@@ -20,5 +21,11 @@ jobs:
         run: flutter test
       - name: Check plugin information
         run: flutter pub pub publish --dry-run
+      - name: Load credential
+        run: |
+          mkdir -p .pub-cache
+          cat <<EOF > ~/.pub-cache/credentials.json
+          ${{ secrets.CREDENTIAL_JSON }}
+          EOF
       - name: Publish
-        run: flutter pub pub publish
+        run: flutter pub pub publish -f
