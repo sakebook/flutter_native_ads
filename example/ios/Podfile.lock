@@ -29,7 +29,7 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
-  - native_ads (0.0.1):
+  - native_ads (0.0.3):
     - Flutter
     - Google-Mobile-Ads-SDK
 
@@ -56,7 +56,7 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 86a82f0e1f20b8eedf8e20326530138fd71409de
   GoogleUtilities: e7dc37039b19df7fe543479d3e4a02ac8d11bb69
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  native_ads: 6fa67afba9c77c99682cb251dec07a11652ffd99
+  native_ads: cba31e11eb56f051f1a47c73f3747a25c49ee190
 
 PODFILE CHECKSUM: b6a0a141693093b304368d08511b46cf3d1d0ac5
 
