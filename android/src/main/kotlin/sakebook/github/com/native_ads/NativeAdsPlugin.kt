@@ -24,8 +24,11 @@ class NativeAdsPlugin : MethodCallHandler {
     }
 
     override fun onMethodCall(call: MethodCall, result: Result) {
-        when(call.method) {
-            "initialize" -> MobileAds.initialize(registrar.context())
+        when (call.method) {
+            "initialize" -> {
+                MobileAds.initialize(registrar.context())
+                result.success(true)
+            }
             else -> result.notImplemented()
         }
     }

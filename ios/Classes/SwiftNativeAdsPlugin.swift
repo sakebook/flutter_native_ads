@@ -14,6 +14,12 @@ public class SwiftNativeAdsPlugin: NSObject, FlutterPlugin {
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    GADMobileAds.sharedInstance().start(completionHandler: nil)
+    switch call.method {
+    case "initialize":
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        result(true)
+    default:
+        result(FlutterMethodNotImplemented)
+    }
   }
 }
