@@ -1,3 +1,9 @@
+## 0.1.0
+
+* Change flutter channel to stable.
+* Fix Android initialize.
+* Add unit test.
+
 ## 0.0.3
 
 * Define Swift version.
