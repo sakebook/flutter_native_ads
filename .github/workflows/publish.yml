@@ -1,6 +1,8 @@
 name: Publish plugin
 
-on: [release]
+on:
+  release:
+    types: [published]
 
 jobs:
   publish:
@@ -8,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: cirrusci/flutter:beta
+      image: cirrusci/flutter:stable
       options: -u root
 
     steps:
