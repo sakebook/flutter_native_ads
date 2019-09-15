@@ -1,3 +1,8 @@
+## 0.2.0
+
+* Update dependencies.
+* Flutter 1.9
+
 ## 0.1.0
 
 * Change flutter channel to stable.
