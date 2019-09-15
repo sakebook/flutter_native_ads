@@ -43,7 +43,7 @@ And PlatformView
 ```
 
 ## Layout
-This plugin supported custom layout
+This plugin supported custom layout. You need to create a layout file.
 
 ### Android
 You can use anything if the parent is a ViewGroup.
@@ -152,13 +152,13 @@ class MyApp extends StatelessWidget {
                       },
                       androidParam: AndroidParam()
                         ..placementId = "ca-app-pub-3940256099942544/2247696110" // test
-                        ..packageName = "sakebook.github.com.native_ads_example"
-                        ..layoutName = "native_ad_layout"
+                        ..packageName = "{{YOUR_ANDROID_APP_PACKAGE_NAME}}"
+                        ..layoutName = "{{YOUR_CREATED_LAYOUT_FILE_NAME}}"
                         ..attributionText = "AD",
                       iosParam: IOSParam()
                         ..placementId = "ca-app-pub-3940256099942544/3986624511" // test
-                        ..bundleId = "sakebook.github.com.nativeAdsExample"
-                        ..layoutName = "UnifiedNativeAdView"
+                        ..bundleId = "{{YOUR_IOS_APP_BUNDLE_ID}}"
+                        ..layoutName = "{{YOUR_CREATED_LAYOUT_FILE_NAME}}"
                         ..attributionText = "SPONSORED",
                       onAdImpression: () => print("onAdImpression!!!"),
                       onAdClicked: () => print("onAdClicked!!!"),
