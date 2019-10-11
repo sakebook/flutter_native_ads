@@ -1,3 +1,7 @@
+## 0.2.1
+
+* Update iOS pod repo.
+
 ## 0.2.0
 
 * Update dependencies.
