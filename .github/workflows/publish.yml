@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Checkout
-      - uses: actions/checkout@v1
+        uses: actions/checkout@v1
       - name: Publish
         uses: actions/actions-flutter-pub-publisher@v1
         with:
