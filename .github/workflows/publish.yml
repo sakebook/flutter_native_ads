@@ -7,10 +7,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    container:
-      image: cirrusci/flutter:stable
-      options: -u root
-
     steps:
       - name: Checkout
       - uses: actions/checkout@v1
