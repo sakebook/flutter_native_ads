@@ -1,6 +1,8 @@
 name: Publish plugin
 
-on: push
+on:
+  release:
+    types: [published]
 
 jobs:
   publish:
