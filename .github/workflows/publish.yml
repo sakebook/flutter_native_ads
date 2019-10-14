@@ -9,23 +9,11 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    container:
-      image: cirrusci/flutter:stable
-      options: -u root
-
     steps:
-      - uses: actions/checkout@v1
-      - name: Install dependencies
-        run: flutter pub get
-      - name: Run tests
-        run: flutter test
-      - name: Check plugin information
-        run: flutter pub pub publish --dry-run
-      - name: Load credential
-        run: |
-          mkdir -p .pub-cache
-          cat <<EOF > ~/.pub-cache/credentials.json
-          ${{ secrets.CREDENTIAL_JSON }}
-          EOF
+      - name: Checkout
+        uses: actions/checkout@v1
       - name: Publish
-        run: flutter pub pub publish -f
+        uses: sakebook/actions-flutter-pub-publisher@v1.0.3
+        with:
+          credential: ${{ secrets.CREDENTIAL_JSON }}
+          skip_test: true
