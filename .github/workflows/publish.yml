@@ -1,8 +1,6 @@
 name: Publish plugin
 
-on:
-  release:
-    types: [published]
+on: push
 
 jobs:
   publish:
@@ -14,18 +12,10 @@ jobs:
       options: -u root
 
     steps:
+      - name: Checkout
       - uses: actions/checkout@v1
-      - name: Install dependencies
-        run: flutter pub get
-      - name: Run tests
-        run: flutter test
-      - name: Check plugin information
-        run: flutter pub pub publish --dry-run
-      - name: Load credential
-        run: |
-          mkdir -p .pub-cache
-          cat <<EOF > ~/.pub-cache/credentials.json
-          ${{ secrets.CREDENTIAL_JSON }}
-          EOF
       - name: Publish
-        run: flutter pub pub publish -f
+        uses: actions/actions-flutter-pub-publisher@v1
+        with:
+          credential: ${{ secrets.CREDENTIAL_JSON }}
+          skip_test: true
