@@ -2,6 +2,7 @@ package sakebook.github.com.native_ads
 
 import android.content.Context
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
@@ -23,6 +24,12 @@ class UnifiedAdLayout(context: Context, messenger: BinaryMessenger, id: Int, arg
     private val bodyView: TextView = unifiedNativeAdView.findViewById(context.resources.getIdentifier("flutter_native_ad_body", "id", hostPackageName))
     private val callToActionView: TextView = unifiedNativeAdView.findViewById(context.resources.getIdentifier("flutter_native_ad_call_to_action", "id", hostPackageName))
     private val mediaView: MediaView = unifiedNativeAdView.findViewById(context.resources.getIdentifier("flutter_native_ad_media", "id", hostPackageName))
+
+    private val iconView: ImageView? = unifiedNativeAdView.findViewById(context.resources.getIdentifier("flutter_native_ad_icon", "id", hostPackageName))
+    private val starRatingView: TextView? = unifiedNativeAdView.findViewById(context.resources.getIdentifier("flutter_native_ad_star", "id", hostPackageName))
+    private val storeView: TextView? = unifiedNativeAdView.findViewById(context.resources.getIdentifier("flutter_native_ad_store", "id", hostPackageName))
+    private val priceView: TextView? = unifiedNativeAdView.findViewById(context.resources.getIdentifier("flutter_native_ad_price", "id", hostPackageName))
+    private val advertiserView: TextView? = unifiedNativeAdView.findViewById(context.resources.getIdentifier("flutter_native_ad_advertiser", "id", hostPackageName))
 
     private val methodChannel: MethodChannel = MethodChannel(messenger, "com.github.sakebook.android/unified_ad_layout_$id")
     private var ad: UnifiedNativeAd? = null
@@ -85,10 +92,22 @@ class UnifiedAdLayout(context: Context, messenger: BinaryMessenger, id: Int, arg
         callToActionView.text = ad?.callToAction
         mediaView.setMediaContent(ad?.mediaContent)
 
+        iconView?.setImageDrawable(ad?.icon?.drawable)
+        starRatingView?.text = "${ad?.starRating}"
+        storeView?.text = ad?.store
+        priceView?.text = ad?.price
+        advertiserView?.text = ad?.advertiser
+
         unifiedNativeAdView.bodyView = bodyView
         unifiedNativeAdView.headlineView = headlineView
         unifiedNativeAdView.callToActionView = callToActionView
         unifiedNativeAdView.mediaView = mediaView
+
+        unifiedNativeAdView.iconView = iconView
+        unifiedNativeAdView.starRatingView = starRatingView
+        unifiedNativeAdView.storeView = storeView
+        unifiedNativeAdView.priceView = priceView
+        unifiedNativeAdView.advertiserView = advertiserView
 
         unifiedNativeAdView.setNativeAd(ad)
     }
