@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     width: double.infinity,
-                    height: 392,
+                    height: 400,
                     child: const NativeAdViewWrapper(),
                   ),
                 );
