@@ -1,6 +1,7 @@
 name: native_ads_example
 description: Demonstrates how to use the native_ads plugin.
 publish_to: 'none'
+version: 0.2.1
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
