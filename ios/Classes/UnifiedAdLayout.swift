@@ -27,6 +27,12 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
     private weak var callToActionView: UILabel!
     private weak var mediaView: GADMediaView!
     private weak var attributionView: UILabel!
+
+    private weak var iconView: UIImageView?
+    private weak var starRatingView: UILabel?
+    private weak var storeView: UILabel?
+    private weak var priceView: UILabel?
+    private weak var advertiserView: UILabel?
     
     init(frame: CGRect, viewId: Int64, args: [String: Any], messeneger: FlutterBinaryMessenger) {
         self.args = args
@@ -64,7 +70,13 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
             fatalError("Could not find Restoration ID 'flutter_native_ad_attribution_view_id'")
         }
         attributionView = attributionLabel
-
+        
+        iconView = adView.iconView as? UIImageView
+        starRatingView = adView.starRatingView as? UILabel
+        storeView = adView.storeView as? UILabel
+        priceView = adView.priceView as? UILabel
+        advertiserView = adView.advertiserView as? UILabel
+        
         fetchAd()
         return unifiedNativeAdView
     }
@@ -88,6 +100,13 @@ extension UnifiedAdLayout : GADUnifiedNativeAdLoaderDelegate {
         mediaView?.mediaContent = nativeAd.mediaContent
         attributionView.text = attributionText
         unifiedNativeAdView.nativeAd = nativeAd
+        
+        iconView?.image = nativeAd.icon?.image
+        starRatingView?.text = String(describing: nativeAd.starRating?.doubleValue)
+        storeView?.text = nativeAd.store
+        priceView?.text = nativeAd.price
+        advertiserView?.text = nativeAd.advertiser
+        
         // Set ourselves as the native ad delegate to be notified of native ad events.
         nativeAd.delegate = self
     }
