@@ -1,6 +1,6 @@
 name: native_ads
 description: Flutter plugin for AdMob Native Ads. Compatible with Android and iOS using PlatformView.
-version: 0.2.1
+version: 0.3.0
 author: sakebook <sakebook@gmail.com>
 homepage: https://github.com/sakebook/flutter_native_ads
 

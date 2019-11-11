@@ -110,6 +110,11 @@ Mapping by view id
 |MediaView|flutter_native_ad_media|
 |Call To Action|flutter_native_ad_call_to_action|
 |Attribution|flutter_native_ad_attribution|
+|Icon|flutter_naitve_ad_icon|
+|Star rating|flutter_naitve_ad_star|
+|Store|flutter_naitve_ad_store|
+|Price|flutter_naitve_ad_price|
+|Advertiser|flutter_naitve_ad_advertiser|
 
 ### iOS
 Mapping by Outlet
@@ -187,12 +192,16 @@ class MyApp extends StatelessWidget {
 ```
 
 ## Supported native ads fields
-- Headline
-- Body
-- Media
-- Call To Action
-- Ad Attribution
-
+- Headline(Required)
+- Body(Required)
+- Media(Required)
+- Call To Action(Required)
+- Ad Attribution(Required)
+- Icon
+- Star rating
+- Store
+- Price
+- Advertiser
 
 ## Event callback
 Receive callbacks for some events by passing to the NativeAdView constructor
@@ -208,5 +217,4 @@ Receive callbacks for some events by passing to the NativeAdView constructor
 This is just an initial version of the plugin. There are still some
 limitations:
 
-- No support [some native ads fields](https://support.google.com/admob/answer/6240809).
 - No support [Mediation Ads](https://developers.google.com/admob/android/mediate).
