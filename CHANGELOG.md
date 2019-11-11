@@ -1,3 +1,7 @@
+## 0.3.0
+
+* Add fields Icon and more.
+
 ## 0.2.1
 
 * Update iOS pod repo.
