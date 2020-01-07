@@ -79,6 +79,7 @@ build/
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
-# geenrated
+# generated
 example/.flutter-plugins-dependencies
 example/ios/Flutter/Flutter.podspec
+example/ios/Flutter/flutter_export_environment.sh

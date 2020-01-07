@@ -131,6 +131,7 @@ import 'package:native_ads/native_ad_view.dart';
 import 'package:native_ads/native_ads.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   NativeAds.initialize();
   runApp(MyApp());
 }

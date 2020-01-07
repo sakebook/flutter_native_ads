@@ -35,6 +35,7 @@ class NativeAdViewWrapperState extends State<NativeAdViewWrapper>
       onAdClicked: () => print("onAdClicked!!!"),
       onAdFailedToLoad: (Map<String, dynamic> error) =>
           print("onAdFailedToLoad!!! $error"),
+      onAdLoaded: () => print("onAdLoaded!!!"),
     );
   }
 }

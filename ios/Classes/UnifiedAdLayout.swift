@@ -46,6 +46,8 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
         self.adLoader = GADAdLoader(adUnitID: placementId, rootViewController: nil,
                     adTypes: [ .unifiedNative ], options: nil)
         channel = FlutterMethodChannel(name: "com.github.sakebook.ios/unified_ad_layout_\(viewId)", binaryMessenger: messeneger)
+        super.init()
+        fetchAd()
     }
     
     private func fetchAd() {
@@ -77,7 +79,6 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
         priceView = adView.priceView as? UILabel
         advertiserView = adView.advertiserView as? UILabel
         
-        fetchAd()
         return unifiedNativeAdView
     }
     

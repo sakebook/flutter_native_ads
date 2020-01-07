@@ -34,7 +34,7 @@ PODS:
     - Google-Mobile-Ads-SDK
 
 DEPENDENCIES:
-  - Flutter (from `.symlinks/flutter/ios`)
+  - Flutter (from `Flutter`)
   - native_ads (from `.symlinks/plugins/native_ads/ios`)
 
 SPEC REPOS:
@@ -46,7 +46,7 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   Flutter:
-    :path: ".symlinks/flutter/ios"
+    :path: Flutter
   native_ads:
     :path: ".symlinks/plugins/native_ads/ios"
 
@@ -58,6 +58,6 @@ SPEC CHECKSUMS:
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   native_ads: 74a76d2873b0de09d7e7b8aad0057aaad9e5f18b
 
-PODFILE CHECKSUM: b6a0a141693093b304368d08511b46cf3d1d0ac5
+PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
 
 COCOAPODS: 1.8.4
