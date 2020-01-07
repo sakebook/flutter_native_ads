@@ -107,9 +107,9 @@ Mapping by view id
 |UnifiedNativeAdView|flutter_native_ad_unified_native_ad|
 |Headline|flutter_native_ad_headline|
 |Body|flutter_native_ad_body|
-|MediaView|flutter_native_ad_media|
 |Call To Action|flutter_native_ad_call_to_action|
 |Attribution|flutter_native_ad_attribution|
+|MediaView|flutter_native_ad_media|
 |Icon|flutter_naitve_ad_icon|
 |Star rating|flutter_naitve_ad_star|
 |Store|flutter_naitve_ad_store|
@@ -195,9 +195,9 @@ class MyApp extends StatelessWidget {
 ## Supported native ads fields
 - Headline(Required)
 - Body(Required)
-- Media(Required)
 - Call To Action(Required)
 - Ad Attribution(Required)
+- Media
 - Icon
 - Star rating
 - Store

@@ -25,9 +25,9 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
     private weak var headlineView: UILabel!
     private weak var bodyView: UILabel!
     private weak var callToActionView: UILabel!
-    private weak var mediaView: GADMediaView!
     private weak var attributionView: UILabel!
 
+    private weak var mediaView: GADMediaView?
     private weak var iconView: UIImageView?
     private weak var starRatingView: UILabel?
     private weak var storeView: UILabel?
@@ -98,10 +98,10 @@ extension UnifiedAdLayout : GADUnifiedNativeAdLoaderDelegate {
         headlineView.text = nativeAd.headline
         bodyView.text = nativeAd.body
         callToActionView.text = nativeAd.callToAction
-        mediaView?.mediaContent = nativeAd.mediaContent
         attributionView.text = attributionText
         unifiedNativeAdView.nativeAd = nativeAd
         
+        mediaView?.mediaContent = nativeAd.mediaContent
         iconView?.image = nativeAd.icon?.image
         starRatingView?.text = String(describing: nativeAd.starRating?.doubleValue)
         storeView?.text = nativeAd.store
