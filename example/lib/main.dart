@@ -4,6 +4,7 @@ import 'package:native_ads/native_ads.dart';
 import 'package:native_ads_example/native_ad_view_wrapper.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   NativeAds.initialize();
   runApp(MyApp());
 }
