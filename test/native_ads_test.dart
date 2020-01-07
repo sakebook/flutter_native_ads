@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:native_ads/native_ads.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   group('NativeAds', () {
     const MethodChannel channel = MethodChannel('native_ads');
 
