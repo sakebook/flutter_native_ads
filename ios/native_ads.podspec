@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'native_ads'
-  s.version          = '0.3.0'
+  s.version          = '0.4.0'
   s.swift_version    = '5.0'
   s.summary          = 'Flutter native ads with PlatformView'
   s.description      = <<-DESC

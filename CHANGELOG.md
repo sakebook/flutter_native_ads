@@ -1,3 +1,12 @@
+## 0.4.0
+### Changed
+* Update libraries.
+* [Android]minSdkVersion to 23.
+* MediaView field to optional.
+
+### Fixed
+* [iOS]Duplicate fetch in iOS.
+
 ## 0.3.0
 
 * Add fields Icon and more.
