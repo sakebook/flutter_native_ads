@@ -4,10 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:native_ads/native_ad_event_delegate.dart';
 import 'package:native_ads/native_ad_param.dart';
 
+/// Called when an impression is recorded for an ad.
 typedef NativeAdViewCreatedCallback = void Function(
     NativeAdViewController controller);
 
+/// Wraps PlatformView view.
 class NativeAdView extends StatefulWidget {
+  /// Create a NativeAdView
   const NativeAdView({
     Key key,
     this.onParentViewCreated,
@@ -20,13 +23,21 @@ class NativeAdView extends StatefulWidget {
     this.onAdLoaded,
   }) : super(key: key);
 
+  /// Called when PlatformView created.
   final NativeAdViewCreatedCallback onParentViewCreated;
+  /// Android parameter for ad.
   final AndroidParam androidParam;
+  /// iOS parameter for ad.
   final IOSParam iosParam;
+  /// Called when an impression is recorded for an ad.
   final Function() onAdImpression;
+  /// Called when an ad leaves the application (e.g., to go to the browser).
   final Function() onAdLeftApplication;
+  /// Called when a click is recorded for an ad.
   final Function() onAdClicked;
+  /// Called when an ad request failed.
   final Function(Map<String, dynamic>) onAdFailedToLoad;
+  /// Called when an ad is received.
   final Function() onAdLoaded;
 
   @override
@@ -77,6 +88,7 @@ class _NativeAdViewState extends State<NativeAdView> {
   }
 }
 
+/// Controller MethodChannel Flutter <-> Android and iOS.
 class NativeAdViewController {
   NativeAdViewController._(int id) : _channel = _createChannel(id);
 
