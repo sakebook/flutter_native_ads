@@ -47,37 +47,42 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
                     adTypes: [ .unifiedNative ], options: nil)
         channel = FlutterMethodChannel(name: "com.github.sakebook.ios/unified_ad_layout_\(viewId)", binaryMessenger: messeneger)
         super.init()
+        
+        guard let nibObjects = Bundle.main.loadNibNamed(layoutName, owner: nil, options: nil),
+            let adView = nibObjects.first as? GADUnifiedNativeAdView else {
+                fatalError("Could not load nib file for adView")
+        }
+        self.adView = adView;
+        
         fetchAd()
     }
-    
+    var adView:GADUnifiedNativeAdView?
+
     private func fetchAd() {
         adLoader.delegate = self
         let request = GADRequest()
         adLoader.load(request)
     }
-    
+
     func view() -> UIView {
-        guard let nibObjects = Bundle.main.loadNibNamed(layoutName, owner: nil, options: nil),
-            let adView = nibObjects.first as? GADUnifiedNativeAdView else {
-                fatalError("Could not load nib file for adView")
-        }
+        
         unifiedNativeAdView = adView
-        headlineView = adView.headlineView as? UILabel
-        bodyView = adView.bodyView as? UILabel
-        callToActionView = adView.callToActionView as? UILabel
-        mediaView = adView.mediaView
-        guard let attributionLabel = (adView as UIView).subviews.first(where: { (v) -> Bool in
+        headlineView = adView?.headlineView as? UILabel
+        bodyView = adView?.bodyView as? UILabel
+        callToActionView = adView?.callToActionView as? UILabel
+        mediaView = adView?.mediaView
+        guard let attributionLabel = (adView! as UIView).subviews.first(where: { (v) -> Bool in
             v.restorationIdentifier == "flutter_native_ad_attribution_view_id"
         }) as? UILabel else {
             fatalError("Could not find Restoration ID 'flutter_native_ad_attribution_view_id'")
         }
         attributionView = attributionLabel
         
-        iconView = adView.iconView as? UIImageView
-        starRatingView = adView.starRatingView as? UILabel
-        storeView = adView.storeView as? UILabel
-        priceView = adView.priceView as? UILabel
-        advertiserView = adView.advertiserView as? UILabel
+        iconView = adView?.iconView as? UIImageView
+        starRatingView = adView?.starRatingView as? UILabel
+        storeView = adView?.storeView as? UILabel
+        priceView = adView?.priceView as? UILabel
+        advertiserView = adView?.advertiserView as? UILabel
         
         return unifiedNativeAdView
     }
