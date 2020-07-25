@@ -54,16 +54,11 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
         }
         unifiedNativeAdView = adView
         super.init()
+        mappingView()
         fetchAd()
     }
 
-    private func fetchAd() {
-        adLoader.delegate = self
-        let request = GADRequest()
-        adLoader.load(request)
-    }
-    
-    func view() -> UIView {
+    private func mappingView() {
         headlineView = unifiedNativeAdView.headlineView as? UILabel
         bodyView = unifiedNativeAdView.bodyView as? UILabel
         callToActionView = unifiedNativeAdView.callToActionView as? UILabel
@@ -80,6 +75,15 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
         storeView = unifiedNativeAdView.storeView as? UILabel
         priceView = unifiedNativeAdView.priceView as? UILabel
         advertiserView = unifiedNativeAdView.advertiserView as? UILabel
+    }
+
+    private func fetchAd() {
+        adLoader.delegate = self
+        let request = GADRequest()
+        adLoader.load(request)
+    }
+    
+    func view() -> UIView {
         return unifiedNativeAdView
     }
     
