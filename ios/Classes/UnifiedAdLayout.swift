@@ -21,7 +21,8 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
     private let layoutName: String
     private let attributionText: String
 
-    private weak var unifiedNativeAdView: GADUnifiedNativeAdView!
+    private let unifiedNativeAdView: GADUnifiedNativeAdView!
+    
     private weak var headlineView: UILabel!
     private weak var bodyView: UILabel!
     private weak var callToActionView: UILabel!
@@ -46,10 +47,16 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
         self.adLoader = GADAdLoader(adUnitID: placementId, rootViewController: nil,
                     adTypes: [ .unifiedNative ], options: nil)
         channel = FlutterMethodChannel(name: "com.github.sakebook.ios/unified_ad_layout_\(viewId)", binaryMessenger: messeneger)
+        
+        guard let nibObjects = Bundle.main.loadNibNamed(layoutName, owner: nil, options: nil),
+              let adView = nibObjects.first as? GADUnifiedNativeAdView else {
+            fatalError("Could not load nib file for adView")
+        }
+        unifiedNativeAdView = adView
         super.init()
         fetchAd()
     }
-    
+
     private func fetchAd() {
         adLoader.delegate = self
         let request = GADRequest()
@@ -57,28 +64,22 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
     }
     
     func view() -> UIView {
-        guard let nibObjects = Bundle.main.loadNibNamed(layoutName, owner: nil, options: nil),
-            let adView = nibObjects.first as? GADUnifiedNativeAdView else {
-                fatalError("Could not load nib file for adView")
-        }
-        unifiedNativeAdView = adView
-        headlineView = adView.headlineView as? UILabel
-        bodyView = adView.bodyView as? UILabel
-        callToActionView = adView.callToActionView as? UILabel
-        mediaView = adView.mediaView
-        guard let attributionLabel = (adView as UIView).subviews.first(where: { (v) -> Bool in
+        headlineView = unifiedNativeAdView.headlineView as? UILabel
+        bodyView = unifiedNativeAdView.bodyView as? UILabel
+        callToActionView = unifiedNativeAdView.callToActionView as? UILabel
+        mediaView = unifiedNativeAdView.mediaView
+        guard let attributionLabel = (unifiedNativeAdView as UIView).subviews.first(where: { (v) -> Bool in
             v.restorationIdentifier == "flutter_native_ad_attribution_view_id"
         }) as? UILabel else {
             fatalError("Could not find Restoration ID 'flutter_native_ad_attribution_view_id'")
         }
         attributionView = attributionLabel
-        
-        iconView = adView.iconView as? UIImageView
-        starRatingView = adView.starRatingView as? UILabel
-        storeView = adView.storeView as? UILabel
-        priceView = adView.priceView as? UILabel
-        advertiserView = adView.advertiserView as? UILabel
-        
+
+        iconView = unifiedNativeAdView.iconView as? UIImageView
+        starRatingView = unifiedNativeAdView.starRatingView as? UILabel
+        storeView = unifiedNativeAdView.storeView as? UILabel
+        priceView = unifiedNativeAdView.priceView as? UILabel
+        advertiserView = unifiedNativeAdView.advertiserView as? UILabel
         return unifiedNativeAdView
     }
     
