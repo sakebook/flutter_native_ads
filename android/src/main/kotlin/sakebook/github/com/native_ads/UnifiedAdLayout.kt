@@ -7,6 +7,7 @@ import android.widget.TextView
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.formats.MediaView
 import com.google.android.gms.ads.formats.NativeAdOptions
 import com.google.android.gms.ads.formats.UnifiedNativeAd
@@ -59,8 +60,14 @@ class UnifiedAdLayout(context: Context, messenger: BinaryMessenger, id: Int, arg
                         methodChannel.invokeMethod("onAdClicked", null)
                     }
 
+                    override fun onAdFailedToLoad(error: LoadAdError) {
+                        super.onAdFailedToLoad(error)
+                        methodChannel.invokeMethod("onAdFailedToLoad", hashMapOf("errorCode" to error.code))
+                    }
+
                     override fun onAdFailedToLoad(errorCode: Int) {
                         super.onAdFailedToLoad(errorCode)
+                        // TODO: Migrate deprecated method.
                         methodChannel.invokeMethod("onAdFailedToLoad", hashMapOf("errorCode" to errorCode))
                     }
 
