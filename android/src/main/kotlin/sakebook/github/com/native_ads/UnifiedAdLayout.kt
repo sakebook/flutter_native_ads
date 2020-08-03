@@ -16,7 +16,12 @@ import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.platform.PlatformView
 
-class UnifiedAdLayout(context: Context, messenger: BinaryMessenger, id: Int, arguments: HashMap<String, String>) : PlatformView {
+class UnifiedAdLayout(
+    context: Context,
+    messenger: BinaryMessenger,
+    id: Int,
+    arguments: HashMap<String, String>
+) : PlatformView {
 
     private val hostPackageName = arguments["package_name"]
     private val layoutRes = context.resources.getIdentifier(arguments["layout_name"], "layout", hostPackageName)
