@@ -1,10 +1,7 @@
 name: native_ads
 description: Flutter plugin for AdMob Native Ads. Compatible with Android and iOS using PlatformView.
-version: 0.4.0
+version: 0.5.0
 homepage: https://github.com/sakebook/flutter_native_ads
-
-environment:
-  sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -16,5 +13,13 @@ dev_dependencies:
 
 flutter:
   plugin:
-    androidPackage: sakebook.github.com.native_ads
-    pluginClass: NativeAdsPlugin
+    platforms:
+      android:
+        package: sakebook.github.com.native_ads
+        pluginClass: NativeAdsPlugin
+      ios:
+        pluginClass: NativeAdsPlugin
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+  flutter: ">=1.12.0 <2.0.0"
