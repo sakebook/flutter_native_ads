@@ -15,7 +15,6 @@ class NativeAdsPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
     private var channel: MethodChannel? = null
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        android.util.Log.d("NativeAdsPlugin", "onAttachedToEngine")
         channel = MethodChannel(binding.binaryMessenger, "native_ads")
         channel?.setMethodCallHandler(this)
         binding.platformViewRegistry
@@ -24,7 +23,6 @@ class NativeAdsPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
-        android.util.Log.d("NativeAdsPlugin", "onAttachedToActivity")
         MobileAds.initialize(binding.activity)
     }
 
