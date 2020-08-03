@@ -47,7 +47,7 @@ This plugin supported custom layout. You need to create a layout file.
 
 ### Android
 You can use anything if the parent is a ViewGroup.
-The example uses RelativeLayout.
+The example uses ConstraintLayout.
 
 Use [`com.google.android.gms.ads.formats.UnifiedNativeAdView`](https://developers.google.com/android/reference/com/google/android/gms/ads/formats/UnifiedNativeAdView) for the parent.
 
@@ -68,9 +68,10 @@ Use [`com.google.android.gms.ads.formats.MediaView`](https://developers.google.c
     ...
     
     <!-- ViewGroup -->
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
         
         ...
 
@@ -212,6 +213,11 @@ Receive callbacks for some events by passing to the NativeAdView constructor
 - onAdFailedToLoad
 - onAdLeftApplication
 - onAdLoaded
+
+## Reference
+- Mobile Ads SDK Release Notes
+  - [Android](https://developers.google.com/admob/android/rel-notes)
+  - [iOS](https://developers.google.com/admob/ios/rel-notes)
 
 ## Limitations
 
