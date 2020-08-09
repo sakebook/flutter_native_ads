@@ -2,10 +2,13 @@
 class AndroidParam {
   /// AdMob placement id.
   String placementId;
+
   /// Android package name of plugin used app.
   String packageName;
+
   /// XML file name that your custom layout for native ad.
   String layoutName;
+
   /// Ad Attribution text.
   String attributionText;
 
@@ -24,10 +27,13 @@ class AndroidParam {
 class IOSParam {
   /// AdMob placement id.
   String placementId;
+
   /// iOD bundle id of plugin used app.
   String bundleId;
+
   /// XIB file name that your custom layout for native ad.
   String layoutName;
+
   /// Ad Attribution text.
   String attributionText;
 
