@@ -25,18 +25,25 @@ class NativeAdView extends StatefulWidget {
 
   /// Called when PlatformView created.
   final NativeAdViewCreatedCallback onParentViewCreated;
+
   /// Android parameter for ad.
   final AndroidParam androidParam;
+
   /// iOS parameter for ad.
   final IOSParam iosParam;
+
   /// Called when an impression is recorded for an ad.
   final Function() onAdImpression;
+
   /// Called when an ad leaves the application (e.g., to go to the browser).
   final Function() onAdLeftApplication;
+
   /// Called when a click is recorded for an ad.
   final Function() onAdClicked;
+
   /// Called when an ad request failed.
   final Function(Map<String, dynamic>) onAdFailedToLoad;
+
   /// Called when an ad is received.
   final Function() onAdLoaded;
 
