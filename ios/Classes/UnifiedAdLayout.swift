@@ -44,6 +44,8 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
         self.layoutName = self.args["layout_name"] as! String
         self.attributionText = self.args["text_attribution"] as! String
 
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = self.args["test_devices"] as? [String]
+
         self.adLoader = GADAdLoader(adUnitID: placementId, rootViewController: nil,
                     adTypes: [ .unifiedNative ], options: nil)
         channel = FlutterMethodChannel(name: "com.github.sakebook.ios/unified_ad_layout_\(viewId)", binaryMessenger: messeneger)

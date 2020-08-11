@@ -161,12 +161,14 @@ class MyApp extends StatelessWidget {
                         ..placementId = "ca-app-pub-3940256099942544/2247696110" // test
                         ..packageName = "{{YOUR_ANDROID_APP_PACKAGE_NAME}}"
                         ..layoutName = "{{YOUR_CREATED_LAYOUT_FILE_NAME}}"
-                        ..attributionText = "AD",
+                        ..attributionText = "AD"
+                        ..testDevices = ["{{YOUR_TEST_DEVICE_IDS}}"],
                       iosParam: IOSParam()
                         ..placementId = "ca-app-pub-3940256099942544/3986624511" // test
                         ..bundleId = "{{YOUR_IOS_APP_BUNDLE_ID}}"
                         ..layoutName = "{{YOUR_CREATED_LAYOUT_FILE_NAME}}"
-                        ..attributionText = "SPONSORED",
+                        ..attributionText = "SPONSORED"
+                        ..testDevices = ["{{YOUR_TEST_DEVICE_IDS}}"],
                       onAdImpression: () => print("onAdImpression!!!"),
                       onAdClicked: () => print("onAdClicked!!!"),
                       onAdFailedToLoad: (Map<String, dynamic> error) => print("onAdFailedToLoad!!! $error"),
