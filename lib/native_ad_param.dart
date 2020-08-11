@@ -12,13 +12,17 @@ class AndroidParam {
   /// Ad Attribution text.
   String attributionText;
 
+  /// Test device ids.
+  List<String> testDevices;
+
   /// Converts this param to a Map
   dynamic toMap() {
-    return <String, String>{
+    return <String, dynamic>{
       'placement_id': placementId,
       'package_name': packageName,
       'layout_name': layoutName,
       'text_attribution': attributionText,
+      'test_devices': testDevices,
     };
   }
 }
@@ -37,13 +41,17 @@ class IOSParam {
   /// Ad Attribution text.
   String attributionText;
 
+  /// Test device ids.
+  List<String> testDevices;
+
   /// Converts this param to a Map
   dynamic toMap() {
-    return <String, String>{
+    return <String, dynamic>{
       'placement_id': placementId,
       'bundle_id': bundleId,
       'layout_name': layoutName,
       'text_attribution': attributionText,
+      'test_devices': testDevices,
     };
   }
 }

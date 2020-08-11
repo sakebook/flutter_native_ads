@@ -8,6 +8,8 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.RequestConfiguration
 import com.google.android.gms.ads.formats.MediaView
 import com.google.android.gms.ads.formats.NativeAdOptions
 import com.google.android.gms.ads.formats.UnifiedNativeAd
@@ -20,11 +22,11 @@ class UnifiedAdLayout(
     context: Context,
     messenger: BinaryMessenger,
     id: Int,
-    arguments: HashMap<String, String>
+    arguments: HashMap<String, Any>
 ) : PlatformView {
 
-    private val hostPackageName = arguments["package_name"]
-    private val layoutRes = context.resources.getIdentifier(arguments["layout_name"], "layout", hostPackageName)
+    private val hostPackageName = arguments["package_name"] as String
+    private val layoutRes = context.resources.getIdentifier(arguments["layout_name"] as String, "layout", hostPackageName)
     private val unifiedNativeAdView: UnifiedNativeAdView = View.inflate(context, layoutRes, null) as UnifiedNativeAdView
     private val headlineView: TextView = unifiedNativeAdView.findViewById(context.resources.getIdentifier("flutter_native_ad_headline", "id", hostPackageName))
     private val bodyView: TextView = unifiedNativeAdView.findViewById(context.resources.getIdentifier("flutter_native_ad_body", "id", hostPackageName))
@@ -41,10 +43,14 @@ class UnifiedAdLayout(
     private var ad: UnifiedNativeAd? = null
 
     init {
+        val ids = arguments["test_devices"] as MutableList<String>?
+        val configuration = RequestConfiguration.Builder().setTestDeviceIds(ids).build()
+        MobileAds.setRequestConfiguration(configuration)
+
         unifiedNativeAdView.findViewById<TextView>(context.resources.getIdentifier("flutter_native_ad_attribution", "id", hostPackageName)).apply {
-            this.text = arguments["text_attribution"]
+            this.text = arguments["text_attribution"] as String
         }
-        AdLoader.Builder(context, arguments["placement_id"])
+        AdLoader.Builder(context, arguments["placement_id"] as String)
                 .forUnifiedNativeAd {
                     ad = it
                     ensureUnifiedAd(it)

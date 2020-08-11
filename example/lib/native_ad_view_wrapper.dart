@@ -25,12 +25,14 @@ class NativeAdViewWrapperState extends State<NativeAdViewWrapper>
         ..placementId = "ca-app-pub-3940256099942544/2247696110" // test
         ..packageName = "sakebook.github.com.native_ads_example"
         ..layoutName = "native_ad_layout"
-        ..attributionText = "AD",
+        ..attributionText = "AD"
+        ..testDevices = ["00000000000000000000000000000000"],
       iosParam: IOSParam()
         ..placementId = "ca-app-pub-3940256099942544/3986624511" // test
         ..bundleId = "sakebook.github.com.nativeAdsExample"
         ..layoutName = "UnifiedNativeAdView"
-        ..attributionText = "SPONSORED",
+        ..attributionText = "SPONSORED"
+        ..testDevices = ["00000000000000000000000000000000"],
       onAdImpression: () => print("onAdImpression!!!"),
       onAdClicked: () => print("onAdClicked!!!"),
       onAdFailedToLoad: (Map<String, dynamic> error) =>
