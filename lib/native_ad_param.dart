@@ -59,6 +59,7 @@ class IOSParam {
   // Button
   double callToActionFontSize;
   String callToActionFontColor;
+  String callToActionBackgroundColor;
   
   String backgroundColor;
 
@@ -78,6 +79,7 @@ class IOSParam {
       'attribution_view_font_color': attributionViewFontColor,
       'call_to_action_font_size': callToActionFontSize,
       'call_to_action_font_color': callToActionFontColor,
+      'call_to_action_background_color': callToActionBackgroundColor,
       'background_color': backgroundColor
     };
   }
