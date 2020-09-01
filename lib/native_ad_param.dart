@@ -43,6 +43,24 @@ class IOSParam {
 
   /// Test device ids.
   List<String> testDevices;
+  
+  //Ad Title
+  double headlineFontSize;
+  String headlineFontColor;
+  
+  //Ad description
+  double bodyFontSize;
+  String bodyFontColor;
+  
+  // "AD" Label
+  double distributionViewFontSize;
+  String distributionViewFontColor;
+  
+  // Button
+  double callToActionFontSize;
+  String callToActionFontColor;
+  
+  String backgroundColor;
 
   /// Converts this param to a Map
   dynamic toMap() {
@@ -52,6 +70,15 @@ class IOSParam {
       'layout_name': layoutName,
       'text_attribution': attributionText,
       'test_devices': testDevices,
+      'headline_font_size': headlineFontSize,
+      'headline_font_color': headlineFontColor,
+      'body_font_size': bodyFontSize,
+      'body_font_color': bodyFontColor,
+      'distribution_view_font_size': distributionViewFontSize,
+      'distribution_view_font_color': distributionViewFontColor,
+      'call_to_action_font_size': callToActionFontSize,
+      'call_to_action_font_color': callToActionFontColor,
+      'background_color': backgroundColor
     };
   }
 }
