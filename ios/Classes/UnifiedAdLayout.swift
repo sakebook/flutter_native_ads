@@ -82,7 +82,7 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
     
     private func configureView() {
         if let headlineFontSize = self.args["headline_font_size"] as? Double {
-            headlineView.font = .boldSystemFont(ofSize: CGFloat(headlineFontSize))
+            headlineView.font = .systemFont(ofSize: CGFloat(headlineFontSize))
         }
         if let headlineFontColor = self.args["headline_font_color"] as? String {
             headlineView.textColor = .fromHex(headlineFontColor)
@@ -104,6 +104,9 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
         }
         if let callToActionFontColor = self.args["call_to_action_font_color"] as? String {
             callToActionView.textColor = .fromHex(callToActionFontColor)
+        }
+        if let callToActionBackgroundColor = self.args["call_to_action_background_color"] as? String {
+            callToActionView.backgroundColor = .fromHex(callToActionBackgroundColor)
         }
         if let backgroundColor = self.args["background_color"] as? String {
             self.view().backgroundColor = .fromHex(backgroundColor)
