@@ -53,8 +53,8 @@ class IOSParam {
   String bodyFontColor;
   
   // "AD" Label
-  double distributionViewFontSize;
-  String distributionViewFontColor;
+  double attributionViewFontSize;
+  String attributionViewFontColor;
   
   // Button
   double callToActionFontSize;
@@ -74,8 +74,8 @@ class IOSParam {
       'headline_font_color': headlineFontColor,
       'body_font_size': bodyFontSize,
       'body_font_color': bodyFontColor,
-      'distribution_view_font_size': distributionViewFontSize,
-      'distribution_view_font_color': distributionViewFontColor,
+      'attribution_view_font_size': attributionViewFontSize,
+      'attribution_view_font_color': attributionViewFontColor,
       'call_to_action_font_size': callToActionFontSize,
       'call_to_action_font_color': callToActionFontColor,
       'background_color': backgroundColor
