@@ -25,7 +25,7 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
     
     private weak var headlineView: UILabel!
     private weak var bodyView: UILabel!
-    private weak var callToActionView: UILabel!
+    private weak var callToActionView: InsetLabel!
     private weak var attributionView: UILabel!
 
     private weak var mediaView: GADMediaView?
