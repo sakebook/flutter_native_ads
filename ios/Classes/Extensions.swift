@@ -40,3 +40,21 @@ extension UIColor {
         return UIColor(hexString: hexString) ?? .clear
     }
 }
+
+class InsetLabel: UILabel {
+    let verticalInset: CGFloat = 4
+    let horizontalInset: CGFloat = 7
+    
+    override func draw(_ rect: CGRect) {
+        let insets = UIEdgeInsets(top: verticalInset, left: horizontalInset, bottom: verticalInset, right: horizontalInset)
+        super.drawText(in: rect.inset(by: insets))
+        self.layoutSubviews()
+    }
+
+    override var intrinsicContentSize: CGSize {
+        var size = super.intrinsicContentSize
+        size.width = horizontalInset * 2 + size.width
+        size.height = verticalInset * 2 + size.height
+        return size
+    }
+}
