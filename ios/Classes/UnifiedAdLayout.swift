@@ -78,6 +78,19 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
         storeView = unifiedNativeAdView.storeView as? UILabel
         priceView = unifiedNativeAdView.priceView as? UILabel
         advertiserView = unifiedNativeAdView.advertiserView as? UILabel
+        
+        showOrHideElements(true)
+    }
+    
+    private func showOrHideElements(_ hide: Bool) {
+        headlineView.isHidden = hide
+        bodyView.isHidden = hide
+        callToActionView.isHidden = hide
+        attributionView.isHidden = hide
+        iconView?.isHidden = hide
+        storeView?.isHidden = hide
+        priceView?.isHidden = hide
+        advertiserView?.isHidden = hide
     }
     
     private func configureView() {
@@ -148,6 +161,7 @@ extension UnifiedAdLayout : GADUnifiedNativeAdLoaderDelegate {
         storeView?.text = nativeAd.store
         priceView?.text = nativeAd.price
         advertiserView?.text = nativeAd.advertiser
+        showOrHideElements(false)
         
         // Set ourselves as the native ad delegate to be notified of native ad events.
         nativeAd.delegate = self
