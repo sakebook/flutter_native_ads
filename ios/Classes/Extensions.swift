@@ -41,9 +41,10 @@ extension UIColor {
     }
 }
 
+@IBDesignable
 class InsetLabel: UILabel {
-    let verticalInset: CGFloat = 4
-    let horizontalInset: CGFloat = 7
+    @IBInspectable var verticalInset: CGFloat = 4
+    @IBInspectable var horizontalInset: CGFloat = 7
     
     override func draw(_ rect: CGRect) {
         let insets = UIEdgeInsets(top: verticalInset, left: horizontalInset, bottom: verticalInset, right: horizontalInset)
