@@ -57,6 +57,7 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
         unifiedNativeAdView = adView
         super.init()
         mappingView()
+        configureView()
         fetchAd()
     }
 
@@ -77,6 +78,39 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
         storeView = unifiedNativeAdView.storeView as? UILabel
         priceView = unifiedNativeAdView.priceView as? UILabel
         advertiserView = unifiedNativeAdView.advertiserView as? UILabel
+    }
+    
+    private func configureView() {
+        if let headlineFontSize = self.args["headline_font_size"] as? Double {
+            headlineView.font = .systemFont(ofSize: CGFloat(headlineFontSize))
+        }
+        if let headlineFontColor = self.args["headline_font_color"] as? String {
+            headlineView.textColor = .fromHex(headlineFontColor)
+        }
+        if let bodyFontSize = self.args["body_font_size"] as? Double {
+            bodyView.font = .systemFont(ofSize: CGFloat(bodyFontSize))
+        }
+        if let bodyFontSize = self.args["body_font_color"] as? String {
+            bodyView.textColor = .fromHex(bodyFontSize)
+        }
+        if let attributionViewFontSize = self.args["attribution_view_font_size"] as? Double {
+            attributionView.font = .systemFont(ofSize: CGFloat(attributionViewFontSize))
+        }
+        if let attributionViewFontColor = self.args["attribution_view_font_color"] as? String {
+            attributionView.textColor = .fromHex(attributionViewFontColor)
+        }
+        if let callToActionFontSize = self.args["call_to_action_font_size"] as? Double {
+            callToActionView.font = .systemFont(ofSize: CGFloat(callToActionFontSize))
+        }
+        if let callToActionFontColor = self.args["call_to_action_font_color"] as? String {
+            callToActionView.textColor = .fromHex(callToActionFontColor)
+        }
+        if let callToActionBackgroundColor = self.args["call_to_action_background_color"] as? String {
+            callToActionView.backgroundColor = .fromHex(callToActionBackgroundColor)
+        }
+        if let backgroundColor = self.args["background_color"] as? String {
+            self.view().backgroundColor = .fromHex(backgroundColor)
+        }
     }
 
     private func fetchAd() {

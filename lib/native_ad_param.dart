@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 /// Android parameter for ad.
 class AndroidParam {
   /// AdMob placement id.
@@ -15,6 +17,26 @@ class AndroidParam {
   /// Test device ids.
   List<String> testDevices;
 
+  //Ad Title
+  double headlineFontSize;
+  Color headlineFontColor;
+
+  //Ad description
+  double bodyFontSize;
+  Color bodyFontColor;
+
+  // "AD" Label
+  double attributionViewFontSize;
+  Color attributionViewFontColor;
+
+  // Button
+  double callToActionFontSize;
+  Color callToActionFontColor;
+  Color callToActionBackgroundColor;
+
+  Color backgroundColor;
+
+
   /// Converts this param to a Map
   dynamic toMap() {
     return <String, dynamic>{
@@ -23,8 +45,23 @@ class AndroidParam {
       'layout_name': layoutName,
       'text_attribution': attributionText,
       'test_devices': testDevices,
+      'headline_font_size': headlineFontSize,
+      'headline_font_color': _toAndroidColor(headlineFontColor),
+      'body_font_size': bodyFontSize,
+      'body_font_color': _toAndroidColor(bodyFontColor),
+      'attribution_view_font_size': attributionViewFontSize,
+      'attribution_view_font_color': _toAndroidColor(attributionViewFontColor),
+      'call_to_action_font_size': callToActionFontSize,
+      'call_to_action_font_color': _toAndroidColor(callToActionFontColor),
+      'call_to_action_background_color': _toAndroidColor(callToActionBackgroundColor),
+      'background_color': _toAndroidColor(backgroundColor)
     };
   }
+
+  String _toAndroidColor(Color color) =>
+      color == null
+          ? null
+          : '#' + color.value.toRadixString(16);
 }
 
 /// iOS parameter for ad.
@@ -44,6 +81,25 @@ class IOSParam {
   /// Test device ids.
   List<String> testDevices;
 
+  //Ad Title
+  double headlineFontSize;
+  String headlineFontColor;
+
+  //Ad description
+  double bodyFontSize;
+  String bodyFontColor;
+
+  // "AD" Label
+  double attributionViewFontSize;
+  String attributionViewFontColor;
+
+  // Button
+  double callToActionFontSize;
+  String callToActionFontColor;
+  String callToActionBackgroundColor;
+
+  String backgroundColor;
+
   /// Converts this param to a Map
   dynamic toMap() {
     return <String, dynamic>{
@@ -52,6 +108,16 @@ class IOSParam {
       'layout_name': layoutName,
       'text_attribution': attributionText,
       'test_devices': testDevices,
+      'headline_font_size': headlineFontSize,
+      'headline_font_color': headlineFontColor,
+      'body_font_size': bodyFontSize,
+      'body_font_color': bodyFontColor,
+      'attribution_view_font_size': attributionViewFontSize,
+      'attribution_view_font_color': attributionViewFontColor,
+      'call_to_action_font_size': callToActionFontSize,
+      'call_to_action_font_color': callToActionFontColor,
+      'call_to_action_background_color': callToActionBackgroundColor,
+      'background_color': backgroundColor
     };
   }
 }

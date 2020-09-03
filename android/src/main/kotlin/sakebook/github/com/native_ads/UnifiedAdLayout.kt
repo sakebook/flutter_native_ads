@@ -17,12 +17,13 @@ import com.google.android.gms.ads.formats.UnifiedNativeAdView
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.platform.PlatformView
+import android.graphics.Color
 
 class UnifiedAdLayout(
-    context: Context,
-    messenger: BinaryMessenger,
-    id: Int,
-    arguments: HashMap<String, Any>
+        context: Context,
+        messenger: BinaryMessenger,
+        id: Int,
+        arguments: HashMap<String, Any>
 ) : PlatformView {
 
     private val hostPackageName = arguments["package_name"] as String
@@ -43,17 +44,36 @@ class UnifiedAdLayout(
     private var ad: UnifiedNativeAd? = null
 
     init {
+        (arguments["headline_font_size"] as Double?)?.toFloat()?.let(headlineView::setTextSize)
+        (arguments["headline_font_color"] as String?)?.let(Color::parseColor)?.let(headlineView::setTextColor)
+
+        (arguments["body_font_size"] as Double?)?.toFloat()?.let(bodyView::setTextSize)
+        (arguments["body_font_color"] as String?)?.let(Color::parseColor)?.let(bodyView::setTextColor)
+
+        (arguments["call_to_action_font_size"] as Double?)?.toFloat()?.let(callToActionView::setTextSize)
+        (arguments["call_to_action_font_color"] as String?)?.let(Color::parseColor)?.let(callToActionView::setTextColor)
+        (arguments["call_to_action_background_color"] as String?)?.let(Color::parseColor)?.let(callToActionView::setBackgroundColor)
+
         val ids = arguments["test_devices"] as MutableList<String>?
         val configuration = RequestConfiguration.Builder().setTestDeviceIds(ids).build()
         MobileAds.setRequestConfiguration(configuration)
 
-        unifiedNativeAdView.findViewById<TextView>(context.resources.getIdentifier("flutter_native_ad_attribution", "id", hostPackageName)).apply {
-            this.text = arguments["text_attribution"] as String
-        }
+        unifiedNativeAdView.findViewById<TextView>(context.resources.getIdentifier("flutter_native_ad_attribution", "id", hostPackageName))
+                .let { attributuionView ->
+                    (arguments["text_attribution"] as String)?.let { attributuionView.setText(it) }
+                    (arguments["attribution_view_font_size"] as Double?)?.toFloat()?.let { attributuionView?.setTextSize(it) }
+                    (arguments["attribution_view_font_color"] as String?)?.let(Color::parseColor)?.let { attributuionView?.setTextColor(it) }
+                }
+
         AdLoader.Builder(context, arguments["placement_id"] as String)
                 .forUnifiedNativeAd {
                     ad = it
+
                     ensureUnifiedAd(it)
+
+                    (arguments["background_color"] as String?)?.let(Color::parseColor)?.let { backgroundColor ->
+                        unifiedNativeAdView?.setBackgroundColor(backgroundColor)
+                    }
                 }
                 .withAdListener(object : AdListener() {
                     override fun onAdImpression() {
