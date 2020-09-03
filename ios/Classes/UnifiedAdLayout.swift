@@ -64,7 +64,7 @@ class UnifiedAdLayout : NSObject, FlutterPlatformView {
     private func mappingView() {
         headlineView = unifiedNativeAdView.headlineView as? UILabel
         bodyView = unifiedNativeAdView.bodyView as? UILabel
-        callToActionView = unifiedNativeAdView.callToActionView as? InsetLabel
+        callToActionView = unifiedNativeAdView.callToActionView as! InsetLabel
         mediaView = unifiedNativeAdView.mediaView
         guard let attributionLabel = (unifiedNativeAdView as UIView).subviews.first(where: { (v) -> Bool in
             v.restorationIdentifier == "flutter_native_ad_attribution_view_id"
