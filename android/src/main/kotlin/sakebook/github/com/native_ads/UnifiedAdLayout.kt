@@ -1,6 +1,7 @@
 package sakebook.github.com.native_ads
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -52,7 +53,9 @@ class UnifiedAdLayout(
 
         (arguments["call_to_action_font_size"] as Double?)?.toFloat()?.let(callToActionView::setTextSize)
         (arguments["call_to_action_font_color"] as String?)?.let(Color::parseColor)?.let(callToActionView::setTextColor)
-        (arguments["call_to_action_background_color"] as String?)?.let(Color::parseColor)?.let(callToActionView::setBackgroundColor)
+        (arguments["call_to_action_background_color"] as String?)?.let { color ->
+            callToActionView.backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
+        }
 
         val ids = arguments["test_devices"] as MutableList<String>?
         val configuration = RequestConfiguration.Builder().setTestDeviceIds(ids).build()

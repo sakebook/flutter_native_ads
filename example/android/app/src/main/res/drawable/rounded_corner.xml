@@ -5,10 +5,10 @@
         android:color="@android:color/holo_red_light" />
 
     <padding
-        android:left="4dp"
-        android:right="4dp"
-        android:bottom="4dp"
-        android:top="4dp" />
+        android:left="4sp"
+        android:right="4sp"
+        android:bottom="4sp"
+        android:top="4sp" />
 
-    <corners android:radius="4dp" />
+    <corners android:radius="16sp" />
 </shape>

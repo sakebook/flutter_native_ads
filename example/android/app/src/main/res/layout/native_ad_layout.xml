@@ -14,79 +14,80 @@
 
         <ImageView
             android:id="@+id/flutter_native_ad_icon"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="@dimen/ad_image_size"
+            android:layout_height="@dimen/ad_image_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"
+            tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/flutter_native_ad_headline"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
             android:ellipsize="end"
             android:gravity="center_vertical"
-            android:maxLines="2"
-            android:paddingLeft="8dp"
+            android:maxLines="1"
             android:textColor="@android:color/black"
-            style="@android:style/TextAppearance.Material.Body2"
-            app:layout_constraintBottom_toBottomOf="@id/flutter_native_ad_icon"
-            app:layout_constraintLeft_toRightOf="@+id/flutter_native_ad_icon"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/flutter_native_ad_icon"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/flutter_native_ad_icon"
-            tools:ignore="RtlHardcoded" />
+            tools:text="Headline Headline Headline Headline Headline Headline Headline" />
 
         <TextView
             android:id="@+id/flutter_native_ad_body"
+            style="@android:style/TextAppearance.Material.Body1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
+            android:layout_marginEnd="15dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="@android:color/black"
-            style="@android:style/TextAppearance.Material.Body1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/flutter_native_ad_icon"
+            app:layout_constraintEnd_toStartOf="@id/flutter_native_ad_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/flutter_native_ad_headline"
             tools:ignore="RtlHardcoded"
-            tools:text="sample title. sample title. sample title. sample title. sample title. sample title" />
+            tools:text="@tools:sample/lorem/random" />
 
-        <com.google.android.gms.ads.formats.MediaView
-            android:id="@+id/flutter_native_ad_media"
-            android:layout_width="0dp"
-            android:layout_height="224dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/flutter_native_ad_body" />
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_headline_body_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="flutter_native_ad_icon,flutter_native_ad_body,flutter_native_ad_headline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/flutter_native_ad_attribution"
+            style="@android:style/TextAppearance.Material.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="middle"
             android:gravity="end|center_vertical"
-            android:singleLine="true"
+            android:maxLines="1"
             android:textColor="@android:color/darker_gray"
-            style="@android:style/TextAppearance.Material.Caption"
-            app:layout_constraintBottom_toBottomOf="@id/flutter_native_ad_icon"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@id/flutter_native_ad_call_to_action"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/flutter_native_ad_call_to_action"
+            tools:text="AD" />
 
         <TextView
             android:id="@+id/flutter_native_ad_call_to_action"
-            android:layout_width="0dp"
+            style="@android:style/TextAppearance.Material.Button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="@dimen/ad_internal_padding"
             android:background="@drawable/rounded_corner"
             android:ellipsize="middle"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
             android:singleLine="true"
             android:textColor="@android:color/white"
-            style="@android:style/TextAppearance.Material.Button"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/flutter_native_ad_media" />
+            app:layout_constraintStart_toEndOf="@id/flutter_native_ad_attribution"
+            app:layout_constraintTop_toBottomOf="@id/barrier_headline_body_icon"
+            tools:text="INSTALL" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
