@@ -133,7 +133,7 @@ class UnifiedAdLayout(
         callToActionView.text = ad?.callToAction
 
         mediaView?.setMediaContent(ad?.mediaContent)
-        iconView?.setImageDrawable(ad?.icon?.drawable)
+        iconView?.setImageDrawable(ad?.mediaContent?.mainImage ?: ad?.images?.firstOrNull()?.drawable ?:  ad?.icon?.drawable)
         starRatingView?.text = "${ad?.starRating}"
         storeView?.text = ad?.store
         priceView?.text = ad?.price
