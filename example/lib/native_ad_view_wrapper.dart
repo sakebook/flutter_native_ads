@@ -35,9 +35,9 @@ class NativeAdViewWrapperState extends State<NativeAdViewWrapper>
         ..attributionViewFontColor =
             const Color.fromARGB(0xFF, 0x80, 0x00, 0xFF)
         ..callToActionFontSize = 12.0
-        ..callToActionFontColor = const Color.fromARGB(0xFF, 0xFF, 0xF0, 0x00)
+        ..callToActionFontColor = const Color.fromARGB(0xFF, 0x80, 0x80, 0x80)
         ..callToActionBackgroundColor =
-            const Color.fromARGB(0xFF, 0x80, 0x80, 0xFF)
+            const Color.fromARGB(0xFF, 0xF1, 0xF2, 0xF2)
         ..backgroundColor = const Color.fromARGB(0xFF, 0xFF, 0xFF, 0xFF),
       iosParam: IOSParam()
         ..placementId = "ca-app-pub-3940256099942544/3986624511" // test

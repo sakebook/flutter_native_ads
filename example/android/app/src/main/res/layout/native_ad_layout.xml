@@ -7,9 +7,11 @@
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/relativeLayout"
+        android:id="@+id/rootLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/flutter_native_ad_icon"
@@ -30,6 +32,7 @@
             android:gravity="center_vertical"
             android:maxLines="1"
             android:textColor="@android:color/black"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/flutter_native_ad_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/flutter_native_ad_icon"
@@ -44,6 +47,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="@android:color/black"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/flutter_native_ad_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/flutter_native_ad_headline"

@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     width: double.infinity,
-                    height: 400,
+                    height: 150,
                     child: const NativeAdViewWrapper(),
                   ),
                 );
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
                 );
               }
             },
-            itemCount: 50,
+            itemCount: 250,
             separatorBuilder: (BuildContext context, _) => const Divider(),
           ),
         ),
