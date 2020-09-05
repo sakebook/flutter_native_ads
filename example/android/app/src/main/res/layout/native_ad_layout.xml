@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.gms.ads.formats.UnifiedNativeAdView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.gms.ads.formats.UnifiedNativeAdView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/flutter_native_ad_unified_native_ad"
@@ -16,6 +15,7 @@
             android:id="@+id/flutter_native_ad_icon"
             android:layout_width="@dimen/ad_image_size"
             android:layout_height="@dimen/ad_image_size"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription"
@@ -82,8 +82,8 @@
             android:background="@drawable/rounded_corner"
             android:ellipsize="middle"
             android:gravity="center"
-            android:padding="5sp"
             android:includeFontPadding="false"
+            android:padding="5sp"
             android:singleLine="true"
             android:textColor="@android:color/white"
             app:layout_constraintStart_toEndOf="@id/flutter_native_ad_attribution"
