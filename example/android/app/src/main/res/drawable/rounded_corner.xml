@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" >
-
-    <solid
-        android:color="@android:color/holo_red_light" />
-
-    <padding
-        android:left="4sp"
-        android:right="4sp"
-        android:bottom="4sp"
-        android:top="4sp" />
-
-    <corners android:radius="16sp" />
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@android:color/holo_red_light" />
+    <corners android:radius="16dp" />
 </shape>

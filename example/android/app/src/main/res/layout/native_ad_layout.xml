@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="flutter_native_ad_icon,flutter_native_ad_body,flutter_native_ad_headline"
+            app:constraint_referenced_ids="flutter_native_ad_body,flutter_native_ad_headline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,6 +82,7 @@
             android:background="@drawable/rounded_corner"
             android:ellipsize="middle"
             android:gravity="center"
+            android:padding="5sp"
             android:includeFontPadding="false"
             android:singleLine="true"
             android:textColor="@android:color/white"
