@@ -48,6 +48,26 @@ class UnifiedAdLayout(
 
     init {
 
+        (arguments["headline_font_size"] as Double?)?.toFloat()?.let(headlineView::setTextSize)
+        (arguments["headline_font_color"] as String?)?.let(Color::parseColor)?.let(headlineView::setTextColor)
+
+        (arguments["body_font_size"] as Double?)?.toFloat()?.let(bodyView::setTextSize)
+        (arguments["body_font_color"] as String?)?.let(Color::parseColor)?.let(bodyView::setTextColor)
+
+        (arguments["call_to_action_font_size"] as Double?)?.toFloat()?.let(callToActionView::setTextSize)
+        (arguments["call_to_action_font_color"] as String?)?.let(Color::parseColor)?.let(callToActionView::setTextColor)
+        (arguments["dark"] as Boolean?)?.let { dark ->
+            val identifier = context.resources.getIdentifier(
+                    when (dark) {
+                        true -> "bg_action_button_dark"
+                        else -> "bg_action_button_light"
+                    },
+                    "drawable",
+                    hostPackageName
+            )
+            callToActionView.setBackgroundResource(identifier)
+        }
+
         val ids = arguments["test_devices"] as MutableList<String>?
         val configuration = RequestConfiguration.Builder().setTestDeviceIds(ids).build()
         MobileAds.setRequestConfiguration(configuration)
@@ -56,33 +76,11 @@ class UnifiedAdLayout(
                 .forUnifiedNativeAd {
                     ad = it
 
-                    rootLayout.visibility = View.VISIBLE
-
-                    (arguments["headline_font_size"] as Double?)?.toFloat()?.let(headlineView::setTextSize)
-                    (arguments["headline_font_color"] as String?)?.let(Color::parseColor)?.let(headlineView::setTextColor)
-
-                    (arguments["body_font_size"] as Double?)?.toFloat()?.let(bodyView::setTextSize)
-                    (arguments["body_font_color"] as String?)?.let(Color::parseColor)?.let(bodyView::setTextColor)
-
-                    (arguments["call_to_action_font_size"] as Double?)?.toFloat()?.let(callToActionView::setTextSize)
-                    (arguments["call_to_action_font_color"] as String?)?.let(Color::parseColor)?.let(callToActionView::setTextColor)
-                    (arguments["call_to_action_background_color"] as String?)?.let { color ->
-                        callToActionView.backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
-                    }
-
-                    unifiedNativeAdView.findViewById<TextView>(context.resources.getIdentifier("flutter_native_ad_attribution", "id", hostPackageName))
-                            .let { attributionView ->
-                                (arguments["text_attribution"] as String?)?.let { attributionView.setText(it) }
-                                (arguments["attribution_view_font_size"] as Double?)?.toFloat()?.let { attributionView?.setTextSize(it) }
-                                (arguments["attribution_view_font_color"] as String?)?.let(Color::parseColor)?.let { attributionView?.setTextColor(it) }
-                            }
-
-                    (arguments["background_color"] as String?)?.let(Color::parseColor)?.let { backgroundColor ->
-                        unifiedNativeAdView.setBackgroundColor(backgroundColor)
-                    }
-
                     ensureUnifiedAd(it)
 
+                    (arguments["background_color"] as String?)?.let(Color::parseColor)?.let { backgroundColor ->
+                        unifiedNativeAdView?.setBackgroundColor(backgroundColor)
+                    }
                 }
                 .withAdListener(object : AdListener() {
                     override fun onAdImpression() {
@@ -113,6 +111,16 @@ class UnifiedAdLayout(
 
                     override fun onAdLoaded() {
                         super.onAdLoaded()
+
+                        rootLayout.visibility = View.VISIBLE
+
+                        unifiedNativeAdView.findViewById<TextView>(context.resources.getIdentifier("flutter_native_ad_attribution", "id", hostPackageName))
+                                .let { attributionView ->
+                                    (arguments["text_attribution"] as String?)?.let { attributionView.setText(it) }
+                                    (arguments["attribution_view_font_size"] as Double?)?.toFloat()?.let { attributionView?.setTextSize(it) }
+                                    (arguments["attribution_view_font_color"] as String?)?.let(Color::parseColor)?.let { attributionView?.setTextColor(it) }
+                                }
+
                         methodChannel.invokeMethod("onAdLoaded", null)
                     }
                 })

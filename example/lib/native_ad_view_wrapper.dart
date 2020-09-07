@@ -27,15 +27,15 @@ class NativeAdViewWrapperState extends State<NativeAdViewWrapper>
         ..layoutName = "native_ad_layout"
         ..attributionText = "AD"
         ..testDevices = ["00000000000000000000000000000000"]
-        ..headlineFontSize = 12.0
-        ..headlineFontColor = const Color.fromARGB(0xFF, 0xFF, 0x80, 0x00)
-        ..bodyFontSize = 12.0
-        ..bodyFontColor = const Color.fromARGB(0xFF, 0x00, 0xFF, 0x80)
+        ..headlineFontSize = 14.0
+        ..headlineFontColor = const Color.fromARGB(0xFF, 0x20, 0x20, 0x20)
+        ..bodyFontSize = 14.0
+        ..bodyFontColor = const Color.fromARGB(0xFF, 0x00, 0x00, 0x00)
         ..attributionViewFontSize = 10.0
         ..attributionViewFontColor =
             const Color.fromARGB(0xFF, 0x80, 0x00, 0xFF)
         ..callToActionFontSize = 12.0
-        ..callToActionFontColor = const Color.fromARGB(0xFF, 0x80, 0x80, 0x80)
+        ..dark = false
         ..callToActionBackgroundColor =
             const Color.fromARGB(0xFF, 0xF1, 0xF2, 0xF2)
         ..backgroundColor = const Color.fromARGB(0xFF, 0xFF, 0xFF, 0xFF),

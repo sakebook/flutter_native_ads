@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="@dimen/ad_internal_padding"
-            android:background="@drawable/rounded_corner"
+            android:background="@drawable/bg_action_button_dark"
             android:ellipsize="middle"
             android:gravity="center"
             android:includeFontPadding="false"
