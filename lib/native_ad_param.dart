@@ -32,6 +32,7 @@ class AndroidParam {
   // Button
   double callToActionFontSize;
   bool dark;
+  Color callToActionFontColor;
   Color callToActionBackgroundColor;
 
   Color backgroundColor;
@@ -53,6 +54,7 @@ class AndroidParam {
       'attribution_view_font_color': _toAndroidColor(attributionViewFontColor),
       'call_to_action_font_size': callToActionFontSize,
       'dark': dark,
+      'call_to_action_font_color': _toAndroidColor(callToActionFontColor),
       'call_to_action_background_color': _toAndroidColor(callToActionBackgroundColor),
       'background_color': _toAndroidColor(backgroundColor)
     };
